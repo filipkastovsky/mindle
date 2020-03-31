@@ -1,4 +1,4 @@
-import IndexPage from '..';
+import IndexPage from '../pages';
 
 describe('index', () => {
     it('should be defined', () => {
