@@ -1,5 +1,4 @@
-// ! puppeteer is a dev dependency, will not be bundled in production (aws-lambda environment)
-// * Fallback to chrome-aws-lambda if puppeteer cannot be found
+// * Fallback to chrome-aws-lambda if puppeteer cannot be found (AWS lambda limits package size to ~50MB)
 // Side effect: If fallback fails, launchBrowserAsync will throw an error
 
 export default async () => {
@@ -7,13 +6,13 @@ export default async () => {
     let browser;
 
     try {
-        // Development
         const puppeteer = await require('puppeteer');
         browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
             defaultViewport,
         });
     } catch {
-        // Production
+        // Fallback for AWS Lambda
         const puppeteer = await require('puppeteer-core');
         const chrome = await require('chrome-aws-lambda');
 
