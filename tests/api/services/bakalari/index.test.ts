@@ -1,10 +1,10 @@
 import bakalari from '../../../../pages/api/services/bakalari';
-import mockServer from '../../../../mocks/mockServer';
+import createMockServer from '../../../../mocks/createMockServer';
 import axios from 'axios';
 
 describe('api/services/bakalari', () => {
     it('should respond 501 to requests other than POST', async () => {
-        const { server, url } = await mockServer(bakalari);
+        const { server, url } = await createMockServer(bakalari);
 
         await axios
             .get(url)
@@ -30,7 +30,7 @@ describe('api/services/bakalari', () => {
     });
 
     it('should respond 403 to an invalid POST', async () => {
-        const { server, url } = await mockServer(bakalari);
+        const { server, url } = await createMockServer(bakalari);
 
         await axios
             .post(url)
@@ -39,22 +39,8 @@ describe('api/services/bakalari', () => {
         server.close();
     });
 
-    it('should respond 401 on AuthError', async () => {
-        const { server, url } = await mockServer(bakalari);
-
-        await axios
-            .post(url, {
-                username: 'test',
-                password: 'test',
-                url: 'https://bakalar.hladnov.cz',
-            })
-            .catch((err) => expect(err.response.data.statusCode).toBe(401));
-
-        server.close();
-    });
-
     it('should respond 403 on Validation Error', async () => {
-        const { server, url } = await mockServer(bakalari);
+        const { server, url } = await createMockServer(bakalari);
 
         await axios
             .post(url, {
