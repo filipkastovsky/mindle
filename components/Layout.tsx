@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import Head from 'next/head';
 
 type Props = {
@@ -19,18 +18,8 @@ const Layout: React.FunctionComponent<Props> = ({
                 content="initial-scale=1.0, width=device-width"
             />
         </Head>
-        <header>
-            <nav>
-                <Link href="/">
-                    <div>Home</div>
-                </Link>
-            </nav>
-        </header>
+
         {children}
-        <footer>
-            <hr />
-            <span>Footer</span>
-        </footer>
     </div>
 );
 
