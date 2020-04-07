@@ -1,9 +1,10 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import WorkInProgress from '../components/WorkInProgress';
 
 const IndexPage = () => (
-    <Layout>
-        <h1>Hello Next.js</h1>
+    <Layout title="Mindle">
+        <WorkInProgress />
     </Layout>
 );
 
