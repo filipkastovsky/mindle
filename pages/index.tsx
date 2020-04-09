@@ -1,11 +1,5 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import WorkInProgress from '../components/WorkInProgress';
 
-const IndexPage = () => (
-    <Layout title="Mindle">
-        <WorkInProgress />
-    </Layout>
-);
+const IndexPage: React.FC = () => <div></div>;
 
 export default IndexPage;
