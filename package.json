@@ -13,6 +13,7 @@
         "prettier": "prettier --write --config ./.prettierrc ./**/*.{js,ts,jsx,tsx,json}"
     },
     "dependencies": {
+        "@material-ui/core": "^4.9.9",
         "axios": "^0.19.2",
         "next": "latest",
         "puppeteer": "^2.1.1",
