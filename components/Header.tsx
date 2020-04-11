@@ -10,7 +10,7 @@ interface IHeaderProps {
 
 const HeaderContainer = styled.div`
     height: 4em;
-    width: 95%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

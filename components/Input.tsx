@@ -12,7 +12,7 @@ export default styled(TextField).attrs(
         },
     }),
 )<IInputProps>`
-    width: 90%;
+    width: 100%;
     margin: 4px 10px;
     border-radius: 1.5em;
 `;
