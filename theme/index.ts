@@ -15,4 +15,20 @@ export default createMuiTheme({
             main: Colors.Green,
         },
     },
+    overrides: {
+        MuiBottomNavigationAction: {
+            root: {
+                color: Colors.Dark,
+                background: Colors.Grey,
+                fontWeight: 'bold',
+                borderTopLeftRadius: '1.5em',
+                borderTopRightRadius: '1.5em',
+                '&$selected': {
+                    color: Colors.White,
+                    background: Colors.Gradient,
+                },
+            },
+            selected: {},
+        },
+    },
 });
