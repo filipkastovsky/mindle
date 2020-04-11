@@ -1,0 +1,26 @@
+import React from 'react';
+import styled from 'styled-components';
+import Colors from '../theme/Colors';
+
+interface IHeroTitleProps {}
+
+const StyledH1 = styled.h1`
+    font-size: 4em;
+    width: 100%;
+    text-align: left;
+`;
+
+const StyledSpan = styled.span`
+    color: ${Colors.Green};
+`;
+
+const HeroTitle: React.FC<IHeroTitleProps> = () => {
+    return (
+        <StyledH1>
+            Welcome <br />
+            to <StyledSpan>mindle</StyledSpan>.
+        </StyledH1>
+    );
+};
+
+export default HeroTitle;
