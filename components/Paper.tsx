@@ -10,11 +10,14 @@ export interface IPaperProps extends MuiPaperProps {
     highlight?: boolean;
 }
 
-export default styled(({ highlight, ...props }: IPaperProps) => (
+const Paper = styled(({ highlight, ...props }: IPaperProps) => (
     <MuiPaper {...props} />
 ))<IPaperProps>`
+    display: flex;
     width: 100%;
     min-height: 3em;
     background: ${({ highlight }) =>
         highlight ? Colors.Gradient : Colors.Grey};
 `;
+
+export default Paper;
