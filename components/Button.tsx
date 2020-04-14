@@ -11,7 +11,7 @@ export enum ButtonRoles {
     Tertiary = 'tertiary',
 }
 
-interface IButtonProps extends MuiButtonProps {
+export interface IButtonProps extends MuiButtonProps {
     role: ButtonRoles;
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Colors from '../theme/Colors';
 
-interface IHeroTitleProps {}
+export interface IHeroTitleProps {}
 
 const StyledH1 = styled.h1`
     font-size: 4em;

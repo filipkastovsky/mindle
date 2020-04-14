@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ExitToApp } from '@material-ui/icons';
 import Colors from '../theme/Colors';
 
-interface IHeaderProps {
+export interface IHeaderProps {
     signedIn: boolean;
     onSignOut: () => void;
 }

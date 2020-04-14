@@ -5,12 +5,12 @@ import {
 } from '@material-ui/core';
 import styled from 'styled-components';
 
-interface IValue {
+export interface IValue {
     value: string;
     label: string;
 }
 
-interface IBottomNavigationProps {
+export interface IBottomNavigationProps {
     currentValue: string;
     onValueChange: (event: React.ChangeEvent<{}>, value: any) => void;
     values: IValue[];
