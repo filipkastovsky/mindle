@@ -1,23 +1,25 @@
 import React from 'react';
-import { Switch as MuiSwitch } from '@material-ui/core';
+import {
+    Switch as MuiSwitch,
+    SwitchProps as MuiSwitchProps,
+} from '@material-ui/core';
 
-interface ISwitchProps {
+export interface ISwitchProps extends MuiSwitchProps {
     currentValue: boolean;
     onValueChange: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
         newValue: boolean,
     ) => void;
-    disabled?: boolean;
 }
 
 const Switch: React.FC<ISwitchProps> = ({
     currentValue,
     onValueChange,
-    disabled = false,
+    ...props
 }) => {
     return (
         <MuiSwitch
-            {...{ disabled }}
+            {...props}
             value={currentValue}
             checked={currentValue}
             onClick={(event, newValue = !currentValue) =>
