@@ -3,5 +3,8 @@ export default interface ITask {
     sender: string | null;
     date: string | null;
     body: string | null;
+    service: string;
+    starred: boolean;
+    resolved: boolean;
     props?: any;
 }
