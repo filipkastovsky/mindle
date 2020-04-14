@@ -18,6 +18,11 @@ export default createMuiTheme({
         },
     },
     overrides: {
+        MuiInputLabel: {
+            root: {
+                fontWeight: 'bold',
+            },
+        },
         MuiBottomNavigationAction: {
             root: {
                 color: Colors.Dark,
