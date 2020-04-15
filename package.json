@@ -11,7 +11,6 @@
         "test:watch": "jest --watch --runInBand --detectOpenHandles",
         "eslint": "eslint ./src/**",
         "prettier": "prettier --write --config ./.prettierrc ./**/*.{js,ts,jsx,tsx,json}",
-        "generate": "graphql-codegen init",
         "codegen": "graphql-codegen --config codegen.yml"
     },
     "dependencies": {
@@ -42,6 +41,7 @@
         "@typescript-eslint/parser": "^2.25.0",
         "babel-eslint": "^10.1.0",
         "babel-plugin-styled-components": "^1.10.7",
+        "dotenv": "^8.2.0",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.2",
         "eslint": "^6.8.0",
