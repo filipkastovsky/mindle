@@ -1,6 +1,7 @@
 import ITask from '../../../../../utils/ITask';
 import { Page } from 'puppeteer';
 import { KomensSelectors } from './Selectors';
+import Services from '../../../../../utils/Services';
 
 export default async (nOfMessages: number, page: Page) => {
     const tasks: ITask[] = [];
@@ -27,7 +28,14 @@ export default async (nOfMessages: number, page: Page) => {
                 el.textContent!.replace(/\n|\t/g, '').replace(/\s{2,}/g, '\n'), //TODO: Source breaks line using HTML <br />, implement custom html to text converter
         );
 
-        tasks.push({ sender, date, body });
+        tasks.push({
+            sender,
+            date,
+            body,
+            service: Services.Bakalari,
+            starred: false,
+            resolved: false,
+        });
     }
 
     return tasks;
