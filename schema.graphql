@@ -1,0 +1,366 @@
+type Connected_service {
+  _id: ObjectId
+  bakalari: Boolean
+  edmodo: Boolean
+  facebook: Boolean
+  googleClassroom: Boolean
+  user_id: String
+}
+
+input Connected_serviceInsertInput {
+  edmodo: Boolean
+  googleClassroom: Boolean
+  _id: ObjectId
+  user_id: String
+  bakalari: Boolean
+  facebook: Boolean
+}
+
+input Connected_serviceQueryInput {
+  user_id_lte: String
+  edmodo: Boolean
+  _id_exists: Boolean
+  _id_gt: ObjectId
+  _id_nin: [ObjectId]
+  bakalari_ne: Boolean
+  AND: [Connected_serviceQueryInput!]
+  googleClassroom_exists: Boolean
+  _id_gte: ObjectId
+  user_id_gte: String
+  facebook_exists: Boolean
+  _id_ne: ObjectId
+  _id_lt: ObjectId
+  user_id_in: [String]
+  _id: ObjectId
+  bakalari_exists: Boolean
+  user_id_gt: String
+  bakalari: Boolean
+  googleClassroom_ne: Boolean
+  user_id_nin: [String]
+  _id_in: [ObjectId]
+  facebook: Boolean
+  user_id_ne: String
+  user_id: String
+  user_id_exists: Boolean
+  OR: [Connected_serviceQueryInput!]
+  edmodo_exists: Boolean
+  user_id_lt: String
+  _id_lte: ObjectId
+  facebook_ne: Boolean
+  edmodo_ne: Boolean
+  googleClassroom: Boolean
+}
+
+enum Connected_serviceSortByInput {
+  _ID_ASC
+  _ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+}
+
+input Connected_serviceUpdateInput {
+  user_id: String
+  bakalari: Boolean
+  facebook: Boolean
+  edmodo: Boolean
+  googleClassroom: Boolean
+  _id: ObjectId
+}
+
+type DeleteManyPayload {
+  deletedCount: Int!
+}
+
+type InsertManyPayload {
+  insertedIds: [ObjectId]!
+}
+
+type Mutation {
+  deleteManyConnected_services(query: Connected_serviceQueryInput): DeleteManyPayload
+  deleteManySettings(query: SettingQueryInput): DeleteManyPayload
+  deleteManyTasks(query: TaskQueryInput): DeleteManyPayload
+  deleteManyUsers(query: UserQueryInput): DeleteManyPayload
+  deleteOneConnected_service(query: Connected_serviceQueryInput!): Connected_service
+  deleteOneSetting(query: SettingQueryInput!): Setting
+  deleteOneTask(query: TaskQueryInput!): Task
+  deleteOneUser(query: UserQueryInput!): User
+  insertManyConnected_services(data: [Connected_serviceInsertInput!]!): InsertManyPayload
+  insertManySettings(data: [SettingInsertInput!]!): InsertManyPayload
+  insertManyTasks(data: [TaskInsertInput!]!): InsertManyPayload
+  insertManyUsers(data: [UserInsertInput!]!): InsertManyPayload
+  insertOneConnected_service(data: Connected_serviceInsertInput!): Connected_service
+  insertOneSetting(data: SettingInsertInput!): Setting
+  insertOneTask(data: TaskInsertInput!): Task
+  insertOneUser(data: UserInsertInput!): User
+  replaceOneConnected_service(query: Connected_serviceQueryInput, data: Connected_serviceInsertInput!): Connected_service
+  replaceOneSetting(query: SettingQueryInput, data: SettingInsertInput!): Setting
+  replaceOneTask(query: TaskQueryInput, data: TaskInsertInput!): Task
+  replaceOneUser(query: UserQueryInput, data: UserInsertInput!): User
+  updateManyConnected_services(query: Connected_serviceQueryInput, set: Connected_serviceUpdateInput!): UpdateManyPayload
+  updateManySettings(query: SettingQueryInput, set: SettingUpdateInput!): UpdateManyPayload
+  updateManyTasks(query: TaskQueryInput, set: TaskUpdateInput!): UpdateManyPayload
+  updateManyUsers(query: UserQueryInput, set: UserUpdateInput!): UpdateManyPayload
+  updateOneConnected_service(query: Connected_serviceQueryInput, set: Connected_serviceUpdateInput!): Connected_service
+  updateOneSetting(set: SettingUpdateInput!, query: SettingQueryInput): Setting
+  updateOneTask(query: TaskQueryInput, set: TaskUpdateInput!): Task
+  updateOneUser(query: UserQueryInput, set: UserUpdateInput!): User
+  upsertOneConnected_service(query: Connected_serviceQueryInput, data: Connected_serviceInsertInput!): Connected_service
+  upsertOneSetting(data: SettingInsertInput!, query: SettingQueryInput): Setting
+  upsertOneTask(query: TaskQueryInput, data: TaskInsertInput!): Task
+  upsertOneUser(data: UserInsertInput!, query: UserQueryInput): User
+}
+
+scalar ObjectId
+
+type Query {
+  connected_service(query: Connected_serviceQueryInput): Connected_service
+  connected_services(query: Connected_serviceQueryInput, limit: Int = 100, sortBy: Connected_serviceSortByInput): [Connected_service]!
+  setting(query: SettingQueryInput): Setting
+  settings(query: SettingQueryInput, limit: Int = 100, sortBy: SettingSortByInput): [Setting]!
+  task(query: TaskQueryInput): Task
+  tasks(limit: Int = 100, sortBy: TaskSortByInput, query: TaskQueryInput): [Task]!
+  user(query: UserQueryInput): User
+  users(query: UserQueryInput, limit: Int = 100, sortBy: UserSortByInput): [User]!
+}
+
+type Setting {
+  _id: ObjectId
+  store_credentials_locally: Boolean
+  user_id: String
+}
+
+input SettingInsertInput {
+  user_id: String
+  store_credentials_locally: Boolean
+  _id: ObjectId
+}
+
+input SettingQueryInput {
+  OR: [SettingQueryInput!]
+  store_credentials_locally_exists: Boolean
+  _id_ne: ObjectId
+  user_id_gt: String
+  _id_in: [ObjectId]
+  _id_gt: ObjectId
+  _id_lt: ObjectId
+  user_id: String
+  user_id_lt: String
+  user_id_in: [String]
+  store_credentials_locally: Boolean
+  store_credentials_locally_ne: Boolean
+  AND: [SettingQueryInput!]
+  user_id_lte: String
+  _id_nin: [ObjectId]
+  user_id_gte: String
+  user_id_ne: String
+  user_id_nin: [String]
+  _id_gte: ObjectId
+  user_id_exists: Boolean
+  _id_exists: Boolean
+  _id: ObjectId
+  _id_lte: ObjectId
+}
+
+enum SettingSortByInput {
+  _ID_ASC
+  _ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+}
+
+input SettingUpdateInput {
+  _id: ObjectId
+  user_id: String
+  store_credentials_locally: Boolean
+}
+
+type Task {
+  _id: ObjectId
+  body: String
+  props: String
+  resolved: Boolean
+  sender: String
+  service: String
+  starred: Boolean
+  user_id: String
+}
+
+input TaskInsertInput {
+  user_id: String
+  service: String
+  sender: String
+  body: String
+  starred: Boolean
+  resolved: Boolean
+  props: String
+  _id: ObjectId
+}
+
+input TaskQueryInput {
+  user_id: String
+  user_id_gte: String
+  body_gt: String
+  props_exists: Boolean
+  starred_ne: Boolean
+  service_gt: String
+  service_gte: String
+  resolved: Boolean
+  body_ne: String
+  _id_in: [ObjectId]
+  props: String
+  sender_in: [String]
+  sender: String
+  user_id_lt: String
+  sender_lt: String
+  props_gt: String
+  sender_gt: String
+  body_nin: [String]
+  _id_lte: ObjectId
+  resolved_ne: Boolean
+  body_lt: String
+  _id_gte: ObjectId
+  props_ne: String
+  _id_gt: ObjectId
+  _id_nin: [ObjectId]
+  sender_nin: [String]
+  sender_ne: String
+  props_gte: String
+  props_nin: [String]
+  AND: [TaskQueryInput!]
+  body_gte: String
+  user_id_nin: [String]
+  _id_lt: ObjectId
+  user_id_ne: String
+  user_id_lte: String
+  body_lte: String
+  service_exists: Boolean
+  body_exists: Boolean
+  service: String
+  _id_ne: ObjectId
+  body: String
+  user_id_exists: Boolean
+  starred: Boolean
+  service_nin: [String]
+  sender_gte: String
+  _id: ObjectId
+  props_lt: String
+  starred_exists: Boolean
+  sender_lte: String
+  resolved_exists: Boolean
+  _id_exists: Boolean
+  OR: [TaskQueryInput!]
+  service_in: [String]
+  props_in: [String]
+  service_ne: String
+  user_id_in: [String]
+  user_id_gt: String
+  service_lt: String
+  sender_exists: Boolean
+  props_lte: String
+  body_in: [String]
+  service_lte: String
+}
+
+enum TaskSortByInput {
+  PROPS_ASC
+  _ID_ASC
+  _ID_DESC
+  USER_ID_ASC
+  SERVICE_ASC
+  BODY_ASC
+  BODY_DESC
+  PROPS_DESC
+  USER_ID_DESC
+  SERVICE_DESC
+  SENDER_ASC
+  SENDER_DESC
+}
+
+input TaskUpdateInput {
+  starred: Boolean
+  resolved: Boolean
+  props: String
+  _id: ObjectId
+  user_id: String
+  service: String
+  sender: String
+  body: String
+}
+
+type UpdateManyPayload {
+  matchedCount: Int!
+  modifiedCount: Int!
+}
+
+type User {
+  _id: ObjectId
+  email: String
+  user_id: String
+  username: String
+}
+
+input UserInsertInput {
+  user_id: String
+  username: String
+  email: String
+  _id: ObjectId
+}
+
+input UserQueryInput {
+  username_exists: Boolean
+  _id_gte: ObjectId
+  username_lt: String
+  username_gt: String
+  user_id_lte: String
+  username: String
+  username_in: [String]
+  AND: [UserQueryInput!]
+  email_ne: String
+  username_lte: String
+  user_id: String
+  _id_gt: ObjectId
+  email_gte: String
+  OR: [UserQueryInput!]
+  email_nin: [String]
+  _id_in: [ObjectId]
+  email: String
+  user_id_ne: String
+  username_ne: String
+  user_id_lt: String
+  user_id_nin: [String]
+  _id: ObjectId
+  _id_ne: ObjectId
+  user_id_in: [String]
+  username_nin: [String]
+  email_lte: String
+  _id_lte: ObjectId
+  _id_nin: [ObjectId]
+  user_id_exists: Boolean
+  user_id_gt: String
+  email_lt: String
+  _id_lt: ObjectId
+  email_gt: String
+  _id_exists: Boolean
+  user_id_gte: String
+  username_gte: String
+  email_in: [String]
+  email_exists: Boolean
+}
+
+enum UserSortByInput {
+  USER_ID_DESC
+  USERNAME_ASC
+  USERNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  _ID_ASC
+  _ID_DESC
+  USER_ID_ASC
+}
+
+input UserUpdateInput {
+  username: String
+  email: String
+  _id: ObjectId
+  user_id: String
+}
