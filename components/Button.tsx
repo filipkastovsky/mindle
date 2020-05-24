@@ -24,8 +24,8 @@ export default styled(MuiButton)<IButtonProps>`
             : 'transparent'};
     color: ${({ role }) =>
         role === ButtonRoles.Primary ? Colors.White : Colors.Dark};
-
     width: 100%;
+    align-self: center;
     height: 3em;
     margin: 4px 10px;
     border-radius: 1.5em;
