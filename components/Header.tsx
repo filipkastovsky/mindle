@@ -4,8 +4,8 @@ import { ExitToApp } from '@material-ui/icons';
 import Colors from '../theme/Colors';
 
 export interface IHeaderProps {
-    signedIn: boolean;
-    onSignOut: () => void;
+    signedIn?: boolean;
+    onSignOut?: () => void;
 }
 
 const HeaderContainer = styled.div`
@@ -16,7 +16,7 @@ const HeaderContainer = styled.div`
     align-items: center;
 `;
 
-const Header: React.FC<IHeaderProps> = ({ signedIn, onSignOut }) => {
+const Header: React.FC<IHeaderProps> = ({ signedIn = false, onSignOut }) => {
     return (
         <HeaderContainer>
             <img src="/logos/mindle-logo.svg" alt="Mindle logo" />
