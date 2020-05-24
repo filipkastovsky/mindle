@@ -4,7 +4,7 @@ import {
     InMemoryCache,
     ApolloLink,
 } from '@apollo/client';
-
+import Router from 'next/router';
 import fetch from 'node-fetch';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
@@ -31,8 +31,7 @@ const client = (uri = process.env.API_URL) => {
     const resetLink = onError(({ networkError }: any) => {
         if (networkError && networkError.statusCode === 401) {
             localStorage.clear();
-            const { replace: navigateTo, protocol, host } = window.location;
-            navigateTo(`${protocol}//${host}`);
+            Router.replace('/');
         }
     });
 
