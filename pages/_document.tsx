@@ -67,6 +67,11 @@ export default class Document extends NextDocument {
                         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
                         rel="stylesheet"
                     />
+                    <link
+                        rel="shortcut icon"
+                        type="image/x-icon"
+                        href="favicon.ico"
+                    />
                 </Head>
                 <body>
                     <Main />

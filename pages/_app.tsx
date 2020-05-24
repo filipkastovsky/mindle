@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: AppPropsType) => {
     return (
         <>
             <Head>
-                <title>Mindle</title>
+                <title>mindle</title>
                 <meta
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width"
