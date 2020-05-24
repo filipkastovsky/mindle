@@ -1,13 +1,50 @@
-import ApolloClient from 'apollo-client';
+import {
+    ApolloClient,
+    HttpLink,
+    InMemoryCache,
+    ApolloLink,
+} from '@apollo/client';
 
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
 import fetch from 'node-fetch';
+import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error';
 
-export default new ApolloClient({
-    link: createHttpLink({
-        uri: process.env.API_URL,
-        fetch: fetch as any,
-    }),
-    cache: new InMemoryCache(),
-});
+const client = (uri = process.env.API_URL) => {
+    const httpLink = new HttpLink({ uri, fetch } as any);
+
+    const authLink = setContext((_, { headers }) => {
+        const authToken = localStorage.getItem('token');
+        if (authToken) {
+            return {
+                headers: {
+                    ...headers,
+                    authorization: `Bearer ${authToken}`,
+                },
+            };
+        }
+
+        return {
+            headers,
+        };
+    });
+
+    const resetLink = onError(({ networkError }: any) => {
+        if (networkError && networkError.statusCode === 401) {
+            localStorage.clear();
+            const { replace: navigateTo, protocol, host } = window.location;
+            navigateTo(`${protocol}//${host}`);
+        }
+    });
+
+    return new ApolloClient({
+        ssrMode: true,
+        link: ApolloLink.from([
+            (authLink as unknown) as ApolloLink,
+            (resetLink as unknown) as ApolloLink,
+            httpLink,
+        ]),
+        cache: new InMemoryCache(),
+    });
+};
+
+export default client;
