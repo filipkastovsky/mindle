@@ -6,6 +6,7 @@ enum Colors {
     Grey = '#EFEFEF',
     White = '#FFFFFF',
     Gradient = 'linear-gradient(98.22deg, #43cfd9 0%, #74d14c 100%)',
+    Red = '#FF0000',
 }
 
 export default Colors;
