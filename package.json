@@ -64,6 +64,7 @@
         "eslint-plugin-react": "^7.20.0",
         "eslint-plugin-react-hooks": "^3.0.0",
         "jest": "^25.5.4",
+        "namor": "^2.0.2",
         "prettier": "^2.0.5",
         "test-listen": "^1.1.0",
         "ts-jest": "^25.5.1",
