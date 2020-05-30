@@ -3,26 +3,27 @@ import { NextApiResponse } from 'next';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import IApiRequest from './interfaces/IApiRequest';
 import fetch from 'node-fetch';
+import { getAdminAuthAsync } from '../utils/getAdminAuthAsync';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
     try {
         if (req.method !== 'POST')
             throw new ApiError(405, 'Unrecognized request method');
 
-        if (!req.body.username || !req.body.password)
-            throw new ApiError(403, 'Invalid request');
+        if (!req.body.userId) throw new ApiError(403, 'Invalid request');
 
-        const result = await fetch(new URL(process.env.LOGIN_URL!), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        const { access_token } = await getAdminAuthAsync();
+        await fetch(
+            new URL(`${process.env.USER_API_URL}/${req.body.userId}/logout`),
+            {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                },
             },
-            body: JSON.stringify(req.body),
-        });
+        );
 
-        const json = await result.json();
-
-        res.status(200).json({ statusCode: 200, data: json });
+        res.status(204).json({ statusCode: 204 });
     } catch (err) {
         res.status(err?.statusCode || 500).json({
             statusCode: err?.statusCode || 500,
