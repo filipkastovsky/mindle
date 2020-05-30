@@ -52,8 +52,6 @@ describe('api/auth', () => {
 
             expect(delResponse.status).toBe(204);
         } catch (err) {
-            console.log(err);
-
             expect(err).toBeUndefined();
         } finally {
             createServer.close();
