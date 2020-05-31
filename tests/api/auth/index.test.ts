@@ -12,12 +12,12 @@ describe('api/auth', () => {
             create,
         );
         const { server: delServer, url: delUrl } = await createMockServer(del);
-        const { server: loginServer, url: loginUrl } = await createMockServer(
-            login,
-        );
-        const { server: logoutServer, url: logoutUrl } = await createMockServer(
-            logout,
-        );
+        // const { server: loginServer, url: loginUrl } = await createMockServer(
+        //     login,
+        // );
+        // const { server: logoutServer, url: logoutUrl } = await createMockServer(
+        //     logout,
+        // );
 
         const email = randomEmail();
         const password = 'testtest';
@@ -30,20 +30,20 @@ describe('api/auth', () => {
 
             expect(createResponse.status).toBe(201);
 
-            // Login
-            const loginResponse = await axios.post(loginUrl, {
-                username: email,
-                password,
-            });
+            // // Login
+            // const loginResponse = await axios.post(loginUrl, {
+            //     username: email,
+            //     password,
+            // });
 
-            expect(loginResponse.data.data.access_token).toBeTruthy();
+            // expect(loginResponse.data.data.access_token).toBeTruthy();
 
-            // Logout
-            const logoutResponse = await axios.post(logoutUrl, {
-                userId: createResponse.data.data._id,
-            });
+            // // Logout
+            // const logoutResponse = await axios.post(logoutUrl, {
+            //     userId: createResponse.data.data._id,
+            // });
 
-            expect(logoutResponse.status).toBe(204);
+            // expect(logoutResponse.status).toBe(204);
 
             // Delete
             const delResponse = await axios.post(delUrl, {
@@ -55,8 +55,8 @@ describe('api/auth', () => {
             expect(err).toBe(undefined);
         } finally {
             createServer.close();
-            loginServer.close();
-            logoutServer.close();
+            // loginServer.close();
+            // logoutServer.close();
             delServer.close();
         }
     });
