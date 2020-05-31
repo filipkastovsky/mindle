@@ -1,4 +1,4 @@
-import Paper, { IPaperProps } from './Paper';
+import Paper, { IPaperProps } from '../Paper/Paper';
 import styled from 'styled-components';
 
 const TaskPaper = styled(Paper)<IPaperProps>`

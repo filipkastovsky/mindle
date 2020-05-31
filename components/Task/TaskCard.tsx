@@ -6,9 +6,15 @@ import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';
 import { IPaperProps } from '../Paper/Paper';
 
+type ClickHandlerType = (
+    event: React.MouseEvent<SVGSVGElement, MouseEvent>,
+) => void;
 export interface ITaskCardProps {
     task: ITask;
     PaperProps?: IPaperProps;
+    onStarClick: ClickHandlerType;
+    onResolveClick: ClickHandlerType;
+    onDeleteClick: ClickHandlerType;
 }
 
 const TaskTitle = styled.h2`
@@ -32,7 +38,9 @@ const TaskBody = styled.p`
 
 const TaskCard: React.FC<ITaskCardProps> = ({
     task: { sender, service, date, body, starred, resolved },
-
+    onStarClick,
+    onResolveClick,
+    onDeleteClick,
     PaperProps,
 }) => {
     return (
@@ -46,10 +54,13 @@ const TaskCard: React.FC<ITaskCardProps> = ({
             <TaskDate>{date}</TaskDate>
             <TaskBody>{body}</TaskBody>
             <TaskActions
-                {...{ starred, resolved }}
-                onStarClick={() => {}}
-                onResolveClick={() => {}}
-                onDeleteClick={() => {}}
+                {...{
+                    starred,
+                    resolved,
+                    onStarClick,
+                    onResolveClick,
+                    onDeleteClick,
+                }}
             />
         </TaskPaper>
     );
