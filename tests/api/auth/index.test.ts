@@ -46,7 +46,7 @@ describe('api/auth', () => {
         } catch (loginErr) {
             expect(loginErr).toBe(undefined);
         } finally {
-            createServer.close();
+            loginServer.close();
         }
         try {
             // Logout
@@ -58,7 +58,7 @@ describe('api/auth', () => {
         } catch (logoutErr) {
             expect(logoutErr).toBe(undefined);
         } finally {
-            createServer.close();
+            logoutServer.close();
         }
         try {
             // Delete
@@ -70,7 +70,7 @@ describe('api/auth', () => {
         } catch (deleteErr) {
             expect(deleteErr).toBe(undefined);
         } finally {
-            createServer.close();
+            delServer.close();
         }
     });
 });
