@@ -17,10 +17,11 @@ import Position from '../components/Position/Position';
 import Button, { ButtonRoles } from '../components/Button/Button';
 import { Routes } from '../Routes';
 import withPage from '../components/withPage';
+import { capitalizeFirst } from '../utils/capitalizeFirst';
 
 const CreateAccountPage: React.FC = () => {
     const { LoginSchema } = useValidationSchemas();
-    const { signIn, error, loading, success } = useAuth();
+    const { signIn, error: authError, loading, success } = useAuth();
     const { active, setActive } = useLoading();
 
     const { values, errors, handleChange, handleSubmit } = useFormik({
@@ -39,8 +40,8 @@ const CreateAccountPage: React.FC = () => {
     }, [success]);
 
     useEffect(() => {
-        if (error) console.error(error);
-    }, [error]);
+        if (authError) console.error(authError);
+    }, [authError]);
 
     useEffect(() => {
         loading !== active && setActive(loading);
@@ -69,8 +70,13 @@ const CreateAccountPage: React.FC = () => {
                     align="flex-start"
                 >
                     <Label>Reset Password</Label>
-                    {firstObjValue(errors) && (
-                        <ErrorMessage>{firstObjValue(errors)}</ErrorMessage>
+                    {(firstObjValue(errors) || authError?.message) && (
+                        <Position justify="flex-start" align="flex-start">
+                            <ErrorMessage>
+                                {firstObjValue(errors) ||
+                                    capitalizeFirst(authError!.message!)}
+                            </ErrorMessage>
+                        </Position>
                     )}
                 </Position>
             </Position>

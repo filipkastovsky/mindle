@@ -16,13 +16,6 @@ const HeaderContainer = styled.div`
     align-items: center;
 `;
 
-// {showHeader(currentPath) && (
-//     <Header
-//         signedIn={showSignOut(currentPath)}
-//         onSignOut={handleSignOut}
-//     />
-// )}
-
 const Header: React.FC<IHeaderProps> = ({ signedIn = false, onSignOut }) => {
     return (
         <HeaderContainer>

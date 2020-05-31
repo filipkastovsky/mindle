@@ -16,10 +16,11 @@ import Button, { ButtonRoles } from '../components/Button/Button';
 import Link from 'next/link';
 import { withPage } from '../components/withPage';
 import { Routes } from '../Routes';
+import { capitalizeFirst } from '../utils/capitalizeFirst';
 
 const CreateAccountPage: React.FC = () => {
     const { CreateAccountSchema } = useValidationSchemas();
-    const { createAccount, error, loading, success } = useAuth();
+    const { createAccount, error: authError, loading, success } = useAuth();
     const { active, setActive } = useLoading();
     const {
         values,
@@ -46,8 +47,8 @@ const CreateAccountPage: React.FC = () => {
     }, [success]);
 
     useEffect(() => {
-        if (error) console.error(error);
-    }, [error]);
+        if (authError) console.error(authError);
+    }, [authError]);
 
     useEffect(() => {
         loading !== active && setActive(loading);
@@ -77,9 +78,12 @@ const CreateAccountPage: React.FC = () => {
                     label="Confirm Password"
                     error={!!errors.confirmPassword}
                 />
-                {firstObjValue(errors) && (
+                {(firstObjValue(errors) || authError?.message) && (
                     <Position justify="flex-start" align="flex-start">
-                        <ErrorMessage>{firstObjValue(errors)}</ErrorMessage>
+                        <ErrorMessage>
+                            {firstObjValue(errors) ||
+                                capitalizeFirst(authError!.message!)}
+                        </ErrorMessage>
                     </Position>
                 )}
             </Position>

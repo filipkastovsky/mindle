@@ -6,11 +6,12 @@ import { ILoginData } from '../interfaces/ILoginData';
 import { setAccessToken } from '../graphql/utils/setAccessToken';
 import { setRefreshToken } from '../graphql/utils/setRefreshToken';
 import { setUserId } from '../graphql/utils/setUserId';
+import { IApiResponse } from '../interfaces/IApiResponse';
 
 export const useAuth = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
-    const [error, setError] = useState<Error | undefined>();
+    const [error, setError] = useState<IApiResponse<undefined> | undefined>();
 
     const resetState = useCallback(() => {
         setSuccess(false);
@@ -23,10 +24,9 @@ export const useAuth = () => {
             resetState();
             try {
                 const res = await axios.post(`/api/auth/login`, loginBody);
+
                 const { access_token, refresh_token, user_id } = res?.data
                     ?.data as ILoginData;
-
-                console.log(res.data);
 
                 if (
                     res.status === 200 &&
@@ -40,8 +40,7 @@ export const useAuth = () => {
                     setSuccess(true);
                 }
             } catch (err) {
-                setError(err);
-                console.error(err);
+                setError(err.response.data);
             } finally {
                 setLoading(false);
             }
@@ -54,10 +53,10 @@ export const useAuth = () => {
             resetState();
             try {
                 const res = await axios.post(`/api/auth/create`, signUpBody);
+                console.log(res.data);
                 if (res.status === 201) setSuccess(true);
             } catch (err) {
-                setError(err);
-                console.error(err);
+                setError(err.response.data);
             } finally {
                 setLoading(false);
             }
