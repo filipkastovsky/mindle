@@ -2,7 +2,7 @@ import { NextApiResponse } from 'next';
 
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import IApiRequest from './interfaces/IApiRequest';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
     try {
@@ -12,7 +12,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
         if (!req.body.username || !req.body.password)
             throw new ApiError(403, 'Invalid request');
 
-        const result = await fetch(new URL(process.env.LOGIN_URL!), {
+        const result = await fetch(process.env.LOGIN_URL!, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

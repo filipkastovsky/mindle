@@ -2,7 +2,7 @@ import { NextApiResponse } from 'next';
 
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import IApiRequest from './interfaces/IApiRequest';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import { getAdminAuthAsync } from '../utils/getAdminAuthAsync';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
@@ -13,7 +13,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
         if (!req.body.userId) throw new ApiError(403, 'Invalid request');
 
         const { access_token } = await getAdminAuthAsync();
-        await fetch(new URL(`${process.env.USER_API_URL}/${req.body.userId}`), {
+        await fetch(`${process.env.USER_API_URL}/${req.body.userId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${access_token}`,
