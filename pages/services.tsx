@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import PageContainer from '../components/PageContainer';
 import { useTasksQueryQuery } from '../graphql/gen';
 import { useLoading } from '../context/Loading';
+import withPage from '../components/withPage';
 
-const Dashboard: React.FC = () => {
+const Services: React.FC = () => {
     const { data, loading } = useTasksQueryQuery();
     const { setActive, active } = useLoading();
     console.log(data);
@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
         loading !== active && setActive(loading);
     }, [active, loading, setActive]);
 
-    return <PageContainer>Dashboard</PageContainer>;
+    return <>Services</>;
 };
 
-export default Dashboard;
+export default withPage(Services);

@@ -17,6 +17,7 @@ import { IRefreshData } from '../interfaces/IRefreshData';
 import { getRefreshToken } from './utils/getRefreshToken';
 import { setAccessToken } from './utils/setAccessToken';
 import Router from 'next/router';
+import { Routes } from '../Routes';
 
 const fetchAccessToken = () =>
     fetch(`/api/auth/refresh`, {
@@ -41,7 +42,7 @@ const isTokenValidOrUndefined = () =>
 
 const handleError: HandleError = () => {
     localStorage.clear();
-    Router.replace('/');
+    Router.replace(Routes.Root);
 };
 
 const client = (uri = process.env.API_URL) => {

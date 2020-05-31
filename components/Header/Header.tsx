@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ExitToApp } from '@material-ui/icons';
-import Colors from '../theme/Colors';
+import Colors from '../../theme/Colors';
 
 export interface IHeaderProps {
     signedIn?: boolean;
@@ -15,6 +15,13 @@ const HeaderContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
+
+// {showHeader(currentPath) && (
+//     <Header
+//         signedIn={showSignOut(currentPath)}
+//         onSignOut={handleSignOut}
+//     />
+// )}
 
 const Header: React.FC<IHeaderProps> = ({ signedIn = false, onSignOut }) => {
     return (

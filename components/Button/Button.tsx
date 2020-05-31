@@ -3,7 +3,7 @@ import {
     ButtonProps as MuiButtonProps,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import Colors from '../theme/Colors';
+import Colors from '../../theme/Colors';
 
 export enum ButtonRoles {
     Primary = 'primary',

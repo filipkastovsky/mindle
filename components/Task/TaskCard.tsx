@@ -1,13 +1,13 @@
 import React from 'react';
-import { IPaperProps } from './Paper';
-import ITask from '../interfaces/ITask';
+
+import ITask from '../../interfaces/ITask';
 import styled from 'styled-components';
 import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';
+import { IPaperProps } from '../Paper/Paper';
 
 export interface ITaskCardProps {
     task: ITask;
-
     PaperProps?: IPaperProps;
 }
 

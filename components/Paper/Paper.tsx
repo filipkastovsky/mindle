@@ -4,7 +4,7 @@ import {
     PaperProps as MuiPaperProps,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import Colors from '../theme/Colors';
+import Colors from '../../theme/Colors';
 
 export interface IPaperProps extends MuiPaperProps {
     highlighted?: boolean;
