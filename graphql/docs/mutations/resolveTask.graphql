@@ -1,0 +1,5 @@
+mutation resolveTask($taskId: ObjectId!, $value: Boolean!) {
+    updateOneTask(query: { _id: $taskId }, set: { resolved: $value }) {
+        ...task
+    }
+}

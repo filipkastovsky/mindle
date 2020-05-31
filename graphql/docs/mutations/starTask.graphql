@@ -1,0 +1,5 @@
+mutation starTask($taskId: ObjectId!, $value: Boolean!) {
+    updateOneTask(query: { _id: $taskId }, set: { starred: $value }) {
+        ...task
+    }
+}

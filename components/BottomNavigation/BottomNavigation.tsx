@@ -14,10 +14,11 @@ export interface IBottomNavigationProps {
 }
 
 const StyledMuiBottomNavigation = styled(MuiBottomNavigation)`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     height: 2.25em;
     width: 100%;
+    background: transparent;
 `;
 
 const handleRouteChange = (_e: React.ChangeEvent<{}>, value: string) =>
