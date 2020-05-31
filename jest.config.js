@@ -4,4 +4,5 @@ module.exports = {
         '^.+\\.tsx?$': 'babel-jest',
     },
     testEnvironment: 'node',
+    setupFiles: ['<rootDir>/tests/setupTests.js'],
 };

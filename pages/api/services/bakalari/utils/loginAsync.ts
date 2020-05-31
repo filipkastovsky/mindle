@@ -2,7 +2,7 @@ import { LoginSelectors } from './Selectors';
 import { Urls } from './Urls';
 import { Page } from 'puppeteer';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
-import IReqBody from '../../../../../utils/IReqBody';
+import IReqBody from '../interfaces/IReqBody';
 
 // Side effect: Throws on Autherror
 export default async ({ username, password, url }: IReqBody, page: Page) => {

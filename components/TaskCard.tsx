@@ -1,6 +1,6 @@
 import React from 'react';
 import { IPaperProps } from './Paper';
-import ITask from '../utils/ITask';
+import ITask from '../interfaces/ITask';
 import styled from 'styled-components';
 import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';

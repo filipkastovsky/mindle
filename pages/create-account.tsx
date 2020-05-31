@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageContainer from '../components/PageContainer';
 import Button, { ButtonRoles } from '../components/Button';
 import Position from '../components/positioning/Position';
@@ -13,9 +13,14 @@ import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import { useValidationSchemas } from '../context/ValidationSchemas';
 import ErrorMessage from '../components/ErrorMessage';
 import { firstObjValue } from '../utils/firstObjValue';
+import { useAuth } from '../hooks/useAuth';
+import { useLoading } from '../context/Loading';
+import Router from 'next/router';
 
 const CreateAccountPage: React.FC = () => {
     const { CreateAccountSchema } = useValidationSchemas();
+    const { createAccount, error, loading, success } = useAuth();
+    const { active, setActive } = useLoading();
     const {
         values,
         errors,
@@ -30,13 +35,23 @@ const CreateAccountPage: React.FC = () => {
         }),
         validationSchema: CreateAccountSchema,
         validateOnChange: false,
-        onSubmit: () => {
-            console.log('valid');
-        },
+        onSubmit: ({ email, password }) => createAccount({ email, password }),
     });
 
     const onChange = handleChange as any;
     const onSubmit = handleSubmit as any;
+
+    useEffect(() => {
+        if (success) Router.replace('/sign-in');
+    }, [success]);
+
+    useEffect(() => {
+        if (error) console.error(error);
+    }, [error]);
+
+    useEffect(() => {
+        loading !== active && setActive(loading);
+    }, [active, loading, setActive]);
 
     return (
         <PageContainer>

@@ -1,4 +1,4 @@
-import ITask from '../../../../../utils/ITask';
+import ITask from '../../../../../interfaces/ITask';
 import { Page } from 'puppeteer';
 import { KomensSelectors } from './Selectors';
 import Services from '../../../../../utils/Services';

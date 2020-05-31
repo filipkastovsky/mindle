@@ -5,13 +5,13 @@ import launchBrowser from './utils/launchBrowserAsync';
 import login from './utils/loginAsync';
 import getNOfMessagesAsync from './utils/getNOfMessagesAsync';
 import { ApiError } from 'next/dist/next-server/server/api-utils';
-import IApiRequest from '../../../../utils/IApiRequest';
+import IApiRequest from './interfaces/IApiRequest';
 import validateUrl from './utils/validateUrl';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
     try {
         if (req.method !== 'POST')
-            throw new ApiError(501, 'Unrecognized request method');
+            throw new ApiError(405, 'Unrecognized request method');
 
         if (!req.body.username || !req.body.password || !req.body.url)
             throw new ApiError(403, 'Invalid request');

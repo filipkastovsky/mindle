@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageContainer from '../components/PageContainer';
 import Button, { ButtonRoles } from '../components/Button';
 import Position from '../components/positioning/Position';
@@ -13,20 +13,37 @@ import { useValidationSchemas } from '../context/ValidationSchemas';
 import ErrorMessage from '../components/ErrorMessage';
 import { firstObjValue } from '../utils/firstObjValue';
 import Label from '../components/Label';
+import { useAuth } from '../hooks/useAuth';
+import { useLoading } from '../context/Loading';
+import Router from 'next/router';
 
 const CreateAccountPage: React.FC = () => {
     const { LoginSchema } = useValidationSchemas();
+    const { signIn, error, loading, success } = useAuth();
+    const { active, setActive } = useLoading();
+
     const { values, errors, handleChange, handleSubmit } = useFormik({
         initialValues: schemaToInitialValues(LoginSchema)(),
         validationSchema: LoginSchema,
         validateOnChange: false,
-        onSubmit: () => {
-            console.log('valid');
-        },
+        onSubmit: ({ email, password }) =>
+            signIn({ username: email, password }),
     });
 
     const onChange = handleChange as any;
     const onSubmit = handleSubmit as any;
+
+    useEffect(() => {
+        if (success) Router.replace('/dashboard');
+    }, [success]);
+
+    useEffect(() => {
+        if (error) console.error(error);
+    }, [error]);
+
+    useEffect(() => {
+        loading !== active && setActive(loading);
+    }, [active, loading, setActive]);
 
     return (
         <PageContainer>

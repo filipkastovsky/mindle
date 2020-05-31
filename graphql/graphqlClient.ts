@@ -4,42 +4,73 @@ import {
     InMemoryCache,
     ApolloLink,
 } from '@apollo/client';
-import Router from 'next/router';
-import fetch from 'node-fetch';
+import fetch from 'isomorphic-fetch';
 import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
+import {
+    TokenRefreshLink,
+    HandleResponse,
+    HandleError,
+} from 'apollo-link-token-refresh';
+import { isJwtExpired } from './utils/isJwtExpired';
+import { getAccessToken } from './utils/getAccessToken';
+import { IRefreshData } from '../interfaces/IRefreshData';
+import { getRefreshToken } from './utils/getRefreshToken';
+import { setAccessToken } from './utils/setAccessToken';
+import Router from 'next/router';
+
+const fetchAccessToken = () =>
+    fetch(`/api/auth/refresh`, {
+        method: 'POST',
+        body: JSON.stringify({ refreshToken: getRefreshToken() }),
+    });
+
+const handleResponse: HandleResponse = (_operation) => async (
+    res: Response,
+) => {
+    const { access_token } = (await res.json())['data'] as IRefreshData;
+    return { access_token };
+};
+
+const handleFetch = (access_token: string) => {
+    setAccessToken(access_token);
+    return;
+};
+
+const isTokenValidOrUndefined = () =>
+    !!getAccessToken() && isJwtExpired(getAccessToken()!);
+
+const handleError: HandleError = () => {
+    localStorage.clear();
+    Router.replace('/');
+};
 
 const client = (uri = process.env.API_URL) => {
     const httpLink = new HttpLink({ uri, fetch } as any);
-
     const authLink = setContext((_, { headers }) => {
-        const authToken = localStorage.getItem('token');
-        if (authToken) {
-            return {
-                headers: {
-                    ...headers,
-                    authorization: `Bearer ${authToken}`,
-                },
-            };
-        }
-
         return {
-            headers,
+            headers: {
+                ...headers,
+                authorization: !!getAccessToken()
+                    ? `Bearer ${getAccessToken()}`
+                    : null,
+            },
         };
     });
 
-    const resetLink = onError(({ networkError }: any) => {
-        if (networkError && networkError.statusCode === 401) {
-            localStorage.clear();
-            Router.replace('/');
-        }
+    const tokenRefreshLink = new TokenRefreshLink({
+        isTokenValidOrUndefined,
+        accessTokenField: 'access_token',
+        fetchAccessToken,
+        handleFetch,
+        handleResponse,
+        handleError,
     });
 
     return new ApolloClient({
         ssrMode: true,
         link: ApolloLink.from([
             (authLink as unknown) as ApolloLink,
-            (resetLink as unknown) as ApolloLink,
+            tokenRefreshLink,
             httpLink,
         ]),
         cache: new InMemoryCache(),

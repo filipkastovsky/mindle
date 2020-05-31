@@ -6,6 +6,7 @@ import theme from '../theme';
 import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import graphqlClient from '../graphql/graphqlClient';
 import { ValidationSchemasProvider } from '../context/ValidationSchemas';
+import { LoadingProvider } from '../context/Loading/Loading';
 
 const App = ({ Component, pageProps }: AppPropsType) => {
     useEffect(() => {
@@ -28,8 +29,10 @@ const App = ({ Component, pageProps }: AppPropsType) => {
             <ValidationSchemasProvider>
                 <ApolloProvider client={graphqlClient()}>
                     <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        <Component {...pageProps} />
+                        <LoadingProvider>
+                            <CssBaseline />
+                            <Component {...pageProps} />
+                        </LoadingProvider>
                     </ThemeProvider>
                 </ApolloProvider>
             </ValidationSchemasProvider>
