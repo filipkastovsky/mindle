@@ -1,7 +1,7 @@
 import create from '../../../pages/api/auth/create';
 import del from '../../../pages/api/auth/delete';
-import login from '../../../pages/api/auth/login';
-import logout from '../../../pages/api/auth/logout';
+// import login from '../../../pages/api/auth/login';
+// import logout from '../../../pages/api/auth/logout';
 import createMockServer from '../../../mocks/createMockServer';
 import axios from 'axios';
 import { randomEmail } from '../../utils/randomEmail';
