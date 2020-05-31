@@ -4,7 +4,7 @@ import { useTasksQueryQuery } from '../graphql/gen';
 import { useLoading } from '../context/Loading';
 
 const Dashboard: React.FC = () => {
-    const { data, loading, error } = useTasksQueryQuery();
+    const { data, loading } = useTasksQueryQuery();
     const { setActive, active } = useLoading();
     console.log(data);
 
