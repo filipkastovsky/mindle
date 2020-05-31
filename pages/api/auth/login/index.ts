@@ -22,6 +22,8 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
 
         const json = await result.json();
 
+        if (json.error) throw new ApiError(400, json.error);
+
         res.status(200).json({ statusCode: 200, data: json });
     } catch (err) {
         res.status(err?.statusCode || 500).json({

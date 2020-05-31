@@ -7,7 +7,7 @@ import {
     Close,
 } from '@material-ui/icons';
 import { SvgIconProps } from '@material-ui/core';
-import withRipple from '../utils/withRipple';
+import withRipple from '../withRipple';
 import TaskActionsContainer from './TaskActionsContainer';
 
 export interface ITaskActionsProps {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper, { IPaperProps } from './Paper';
-import Switch, { ISwitchProps } from './Switch';
+import Switch, { ISwitchProps } from '../Switch/Switch';
 import styled from 'styled-components';
 
 export interface IPaperWithSwitchProps {

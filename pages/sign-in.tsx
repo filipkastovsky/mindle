@@ -1,25 +1,27 @@
 import React, { useEffect } from 'react';
-import PageContainer from '../components/PageContainer';
-import Button, { ButtonRoles } from '../components/Button';
-import Position from '../components/positioning/Position';
+
 import Link from 'next/link';
-import Header from '../components/Header';
-import Input from '../components/Input';
+import Input from '../components/Input/Input';
 import StyledIllustration from '../components/StyledIllustration';
 import { useFormik } from 'formik';
 
 import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import { useValidationSchemas } from '../context/ValidationSchemas';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import { firstObjValue } from '../utils/firstObjValue';
-import Label from '../components/Label';
+import Label from '../components/Label/Label';
 import { useAuth } from '../hooks/useAuth';
 import { useLoading } from '../context/Loading';
 import Router from 'next/router';
+import Position from '../components/Position/Position';
+import Button, { ButtonRoles } from '../components/Button/Button';
+import { Routes } from '../Routes';
+import withPage from '../components/withPage';
+import { capitalizeFirst } from '../utils/capitalizeFirst';
 
 const CreateAccountPage: React.FC = () => {
     const { LoginSchema } = useValidationSchemas();
-    const { signIn, error, loading, success } = useAuth();
+    const { signIn, error: authError, loading, success } = useAuth();
     const { active, setActive } = useLoading();
 
     const { values, errors, handleChange, handleSubmit } = useFormik({
@@ -34,21 +36,19 @@ const CreateAccountPage: React.FC = () => {
     const onSubmit = handleSubmit as any;
 
     useEffect(() => {
-        if (success) Router.replace('/dashboard');
+        if (success) Router.replace(Routes.News);
     }, [success]);
 
     useEffect(() => {
-        if (error) console.error(error);
-    }, [error]);
+        if (authError) console.error(authError);
+    }, [authError]);
 
     useEffect(() => {
         loading !== active && setActive(loading);
     }, [active, loading, setActive]);
 
     return (
-        <PageContainer>
-            <Header />
-
+        <>
             <Position>
                 <Input
                     value={values.email}
@@ -70,8 +70,13 @@ const CreateAccountPage: React.FC = () => {
                     align="flex-start"
                 >
                     <Label>Reset Password</Label>
-                    {firstObjValue(errors) && (
-                        <ErrorMessage>{firstObjValue(errors)}</ErrorMessage>
+                    {(firstObjValue(errors) || authError?.message) && (
+                        <Position justify="flex-start" align="flex-start">
+                            <ErrorMessage>
+                                {firstObjValue(errors) ||
+                                    capitalizeFirst(authError!.message!)}
+                            </ErrorMessage>
+                        </Position>
                     )}
                 </Position>
             </Position>
@@ -84,12 +89,12 @@ const CreateAccountPage: React.FC = () => {
                     Sign In
                 </Button>
 
-                <Link href="/create-account">
+                <Link href={Routes.CreateAccount}>
                     <Button role={ButtonRoles.Secondary}>Create Account</Button>
                 </Link>
             </Position>
-        </PageContainer>
+        </>
     );
 };
 
-export default CreateAccountPage;
+export default withPage(CreateAccountPage);

@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react';
-import PageContainer from '../components/PageContainer';
-import Button, { ButtonRoles } from '../components/Button';
-import Position from '../components/positioning/Position';
-import Link from 'next/link';
-import Header from '../components/Header';
-import Input from '../components/Input';
-import StyledIllustration from '../components/StyledIllustration';
-import { useFormik } from 'formik';
 
-import Checkbox from '../components/Checkbox';
-import { schemaToInitialValues } from '../utils/schemaToInitialValues';
-import { useValidationSchemas } from '../context/ValidationSchemas';
-import ErrorMessage from '../components/ErrorMessage';
 import { firstObjValue } from '../utils/firstObjValue';
 import { useAuth } from '../hooks/useAuth';
 import { useLoading } from '../context/Loading';
 import Router from 'next/router';
+import { useValidationSchemas } from '../context/ValidationSchemas';
+import { useFormik } from 'formik';
+import { schemaToInitialValues } from '../utils/schemaToInitialValues';
+import Position from '../components/Position/Position';
+import Input from '../components/Input/Input';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
+import StyledIllustration from '../components/StyledIllustration';
+import Checkbox from '../components/Checkbox/Checkbox';
+import Button, { ButtonRoles } from '../components/Button/Button';
+import Link from 'next/link';
+import { withPage } from '../components/withPage';
+import { Routes } from '../Routes';
+import { capitalizeFirst } from '../utils/capitalizeFirst';
 
 const CreateAccountPage: React.FC = () => {
     const { CreateAccountSchema } = useValidationSchemas();
-    const { createAccount, error, loading, success } = useAuth();
+    const { createAccount, error: authError, loading, success } = useAuth();
     const { active, setActive } = useLoading();
     const {
         values,
@@ -42,21 +43,19 @@ const CreateAccountPage: React.FC = () => {
     const onSubmit = handleSubmit as any;
 
     useEffect(() => {
-        if (success) Router.replace('/sign-in');
+        if (success) Router.replace(Routes.SignIn);
     }, [success]);
 
     useEffect(() => {
-        if (error) console.error(error);
-    }, [error]);
+        if (authError) console.error(authError);
+    }, [authError]);
 
     useEffect(() => {
         loading !== active && setActive(loading);
     }, [active, loading, setActive]);
 
     return (
-        <PageContainer>
-            <Header />
-
+        <>
             <Position>
                 <Input
                     value={values.email}
@@ -79,9 +78,12 @@ const CreateAccountPage: React.FC = () => {
                     label="Confirm Password"
                     error={!!errors.confirmPassword}
                 />
-                {firstObjValue(errors) && (
+                {(firstObjValue(errors) || authError?.message) && (
                     <Position justify="flex-start" align="flex-start">
-                        <ErrorMessage>{firstObjValue(errors)}</ErrorMessage>
+                        <ErrorMessage>
+                            {firstObjValue(errors) ||
+                                capitalizeFirst(authError!.message!)}
+                        </ErrorMessage>
                     </Position>
                 )}
             </Position>
@@ -122,12 +124,12 @@ const CreateAccountPage: React.FC = () => {
                     Create Account
                 </Button>
 
-                <Link href="/sign-in">
+                <Link href={Routes.SignIn}>
                     <Button role={ButtonRoles.Secondary}>Sign In</Button>
                 </Link>
             </Position>
-        </PageContainer>
+        </>
     );
 };
 
-export default CreateAccountPage;
+export default withPage(CreateAccountPage);

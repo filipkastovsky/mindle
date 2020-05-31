@@ -4,29 +4,30 @@ import {
     BottomNavigationAction,
 } from '@material-ui/core';
 import styled from 'styled-components';
-
-export interface IValue {
-    value: string;
-    label: string;
-}
+import { NavigationTabValues, NavigationTabs, IValue } from './NavigationTabs';
+import Router from 'next/router';
 
 export interface IBottomNavigationProps {
-    currentValue: string;
-    onValueChange: (event: React.ChangeEvent<{}>, value: any) => void;
-    values: IValue[];
+    currentValue: NavigationTabValues | string;
+    onValueChange?: (event: React.ChangeEvent<{}>, value: any) => void;
+    values?: IValue[];
 }
 
 const StyledMuiBottomNavigation = styled(MuiBottomNavigation)`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     height: 2.25em;
     width: 100%;
+    background: transparent;
 `;
+
+const handleRouteChange = (_e: React.ChangeEvent<{}>, value: string) =>
+    Router.push(value);
 
 const BottomNavigation: React.FC<IBottomNavigationProps> = ({
     currentValue,
-    onValueChange,
-    values,
+    onValueChange = handleRouteChange,
+    values = NavigationTabs,
 }) => {
     return (
         <StyledMuiBottomNavigation

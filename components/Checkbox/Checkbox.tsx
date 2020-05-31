@@ -4,7 +4,7 @@ import {
     CheckboxProps as MuiCheckboxProps,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import Position from './positioning/Position';
+import Position from '../Position/Position';
 
 const Label = styled.h3`
     font-size: 1em;

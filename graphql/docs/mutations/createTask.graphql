@@ -1,0 +1,5 @@
+mutation createTask($task: TaskInsertInput!) {
+    insertOneTask(data: $task) {
+        ...task
+    }
+}

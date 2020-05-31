@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ExitToApp } from '@material-ui/icons';
-import Colors from '../theme/Colors';
+import Colors from '../../theme/Colors';
+import withRipple from '../withRipple';
 
 export interface IHeaderProps {
     signedIn?: boolean;
@@ -16,12 +17,14 @@ const HeaderContainer = styled.div`
     align-items: center;
 `;
 
+const ExitToAppWithRipple = withRipple(ExitToApp);
+
 const Header: React.FC<IHeaderProps> = ({ signedIn = false, onSignOut }) => {
     return (
         <HeaderContainer>
             <img src="/logos/mindle-logo.svg" alt="Mindle logo" />
             {signedIn && (
-                <ExitToApp
+                <ExitToAppWithRipple
                     htmlColor={Colors.Dark}
                     fontSize="large"
                     onClick={onSignOut}
