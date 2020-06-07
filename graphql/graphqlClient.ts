@@ -68,13 +68,13 @@ const client = (uri = process.env.API_URL) => {
     });
 
     return new ApolloClient({
-        ssrMode: true,
         link: ApolloLink.from([
             (authLink as unknown) as ApolloLink,
             tokenRefreshLink,
             httpLink,
         ]),
         cache: new InMemoryCache(),
+        defaultOptions: { query: { fetchPolicy: 'cache-only' } },
     });
 };
 

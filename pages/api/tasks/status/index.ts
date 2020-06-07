@@ -2,25 +2,24 @@ import { NextApiResponse } from 'next';
 
 import { ApiError } from 'next/dist/next-server/server/api-utils';
 import IApiRequest from './interfaces/IApiRequest';
-import fetch from 'isomorphic-fetch';
-import { getAdminAuthAsync } from '../utils/getAdminAuthAsync';
+import jwtDecode from 'jwt-decode';
+import { IDecodedJwt } from '../../../../interfaces/IDecodedJwt';
+import statusStore from '../utils/statusStore';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
     try {
         if (req.method !== 'POST')
             throw new ApiError(405, 'Unrecognized request method');
 
-        if (!req.body.userId) throw new ApiError(403, 'Invalid request');
+        if (!req.body.token)
+            throw new ApiError(401, 'Unauthorized access attempt');
 
-        const { access_token } = await getAdminAuthAsync();
-        await fetch(`${process.env.USER_API_URL}/${req.body.userId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${access_token}`,
-            },
+        const { sub } = jwtDecode(req.body.token) as IDecodedJwt;
+        const pending = !!(await statusStore.getItem(sub));
+        res.status(200).json({
+            statusCode: 200,
+            data: { pending },
         });
-
-        res.status(204).json({ statusCode: 204 });
     } catch (err) {
         console.error(err);
         res.status(err?.statusCode || 500).json({

@@ -23,47 +23,47 @@ export type Connected_Service = {
 };
 
 export type Connected_ServiceInsertInput = {
-    edmodo?: Maybe<Scalars['Boolean']>;
-    googleClassroom?: Maybe<Scalars['Boolean']>;
-    _id?: Maybe<Scalars['ObjectId']>;
     user_id?: Maybe<Scalars['String']>;
     bakalari?: Maybe<Scalars['Boolean']>;
     facebook?: Maybe<Scalars['Boolean']>;
+    edmodo?: Maybe<Scalars['Boolean']>;
+    googleClassroom?: Maybe<Scalars['Boolean']>;
+    _id?: Maybe<Scalars['ObjectId']>;
 };
 
 export type Connected_ServiceQueryInput = {
     user_id_lte?: Maybe<Scalars['String']>;
-    edmodo?: Maybe<Scalars['Boolean']>;
-    _id_exists?: Maybe<Scalars['Boolean']>;
-    _id_gt?: Maybe<Scalars['ObjectId']>;
-    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    bakalari_ne?: Maybe<Scalars['Boolean']>;
-    AND?: Maybe<Array<Connected_ServiceQueryInput>>;
-    googleClassroom_exists?: Maybe<Scalars['Boolean']>;
-    _id_gte?: Maybe<Scalars['ObjectId']>;
-    user_id_gte?: Maybe<Scalars['String']>;
-    facebook_exists?: Maybe<Scalars['Boolean']>;
-    _id_ne?: Maybe<Scalars['ObjectId']>;
-    _id_lt?: Maybe<Scalars['ObjectId']>;
-    user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id?: Maybe<Scalars['ObjectId']>;
-    bakalari_exists?: Maybe<Scalars['Boolean']>;
-    user_id_gt?: Maybe<Scalars['String']>;
-    bakalari?: Maybe<Scalars['Boolean']>;
-    googleClassroom_ne?: Maybe<Scalars['Boolean']>;
-    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    facebook?: Maybe<Scalars['Boolean']>;
-    user_id_ne?: Maybe<Scalars['String']>;
-    user_id?: Maybe<Scalars['String']>;
-    user_id_exists?: Maybe<Scalars['Boolean']>;
-    OR?: Maybe<Array<Connected_ServiceQueryInput>>;
-    edmodo_exists?: Maybe<Scalars['Boolean']>;
-    user_id_lt?: Maybe<Scalars['String']>;
     _id_lte?: Maybe<Scalars['ObjectId']>;
-    facebook_ne?: Maybe<Scalars['Boolean']>;
-    edmodo_ne?: Maybe<Scalars['Boolean']>;
+    user_id?: Maybe<Scalars['String']>;
+    _id_exists?: Maybe<Scalars['Boolean']>;
+    facebook_exists?: Maybe<Scalars['Boolean']>;
+    user_id_exists?: Maybe<Scalars['Boolean']>;
+    _id_lt?: Maybe<Scalars['ObjectId']>;
+    edmodo_exists?: Maybe<Scalars['Boolean']>;
+    bakalari_exists?: Maybe<Scalars['Boolean']>;
+    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
     googleClassroom?: Maybe<Scalars['Boolean']>;
+    _id?: Maybe<Scalars['ObjectId']>;
+    AND?: Maybe<Array<Connected_ServiceQueryInput>>;
+    facebook_ne?: Maybe<Scalars['Boolean']>;
+    googleClassroom_ne?: Maybe<Scalars['Boolean']>;
+    _id_gte?: Maybe<Scalars['ObjectId']>;
+    googleClassroom_exists?: Maybe<Scalars['Boolean']>;
+    bakalari?: Maybe<Scalars['Boolean']>;
+    facebook?: Maybe<Scalars['Boolean']>;
+    user_id_lt?: Maybe<Scalars['String']>;
+    edmodo_ne?: Maybe<Scalars['Boolean']>;
+    bakalari_ne?: Maybe<Scalars['Boolean']>;
+    edmodo?: Maybe<Scalars['Boolean']>;
+    user_id_gte?: Maybe<Scalars['String']>;
+    OR?: Maybe<Array<Connected_ServiceQueryInput>>;
+    _id_gt?: Maybe<Scalars['ObjectId']>;
+    _id_ne?: Maybe<Scalars['ObjectId']>;
+    user_id_gt?: Maybe<Scalars['String']>;
+    user_id_ne?: Maybe<Scalars['String']>;
+    user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
+    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export enum Connected_ServiceSortByInput {
@@ -76,9 +76,15 @@ export enum Connected_ServiceSortByInput {
 export type Connected_ServiceUpdateInput = {
     user_id?: Maybe<Scalars['String']>;
     bakalari?: Maybe<Scalars['Boolean']>;
-    facebook?: Maybe<Scalars['Boolean']>;
     edmodo?: Maybe<Scalars['Boolean']>;
+    googleClassroom_unset?: Maybe<Scalars['Boolean']>;
+    bakalari_unset?: Maybe<Scalars['Boolean']>;
     googleClassroom?: Maybe<Scalars['Boolean']>;
+    _id_unset?: Maybe<Scalars['Boolean']>;
+    user_id_unset?: Maybe<Scalars['Boolean']>;
+    facebook?: Maybe<Scalars['Boolean']>;
+    facebook_unset?: Maybe<Scalars['Boolean']>;
+    edmodo_unset?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
 };
 
@@ -193,13 +199,13 @@ export type MutationInsertOneUserArgs = {
 };
 
 export type MutationReplaceOneConnected_ServiceArgs = {
-    query?: Maybe<Connected_ServiceQueryInput>;
     data: Connected_ServiceInsertInput;
+    query?: Maybe<Connected_ServiceQueryInput>;
 };
 
 export type MutationReplaceOneSettingArgs = {
-    query?: Maybe<SettingQueryInput>;
     data: SettingInsertInput;
+    query?: Maybe<SettingQueryInput>;
 };
 
 export type MutationReplaceOneTaskArgs = {
@@ -218,8 +224,8 @@ export type MutationUpdateManyConnected_ServicesArgs = {
 };
 
 export type MutationUpdateManySettingsArgs = {
-    query?: Maybe<SettingQueryInput>;
     set: SettingUpdateInput;
+    query?: Maybe<SettingQueryInput>;
 };
 
 export type MutationUpdateManyTasksArgs = {
@@ -238,8 +244,8 @@ export type MutationUpdateOneConnected_ServiceArgs = {
 };
 
 export type MutationUpdateOneSettingArgs = {
-    set: SettingUpdateInput;
     query?: Maybe<SettingQueryInput>;
+    set: SettingUpdateInput;
 };
 
 export type MutationUpdateOneTaskArgs = {
@@ -268,8 +274,8 @@ export type MutationUpsertOneTaskArgs = {
 };
 
 export type MutationUpsertOneUserArgs = {
-    data: UserInsertInput;
     query?: Maybe<UserQueryInput>;
+    data: UserInsertInput;
 };
 
 export type Query = {
@@ -289,9 +295,9 @@ export type QueryConnected_ServiceArgs = {
 };
 
 export type QueryConnected_ServicesArgs = {
+    sortBy?: Maybe<Connected_ServiceSortByInput>;
     query?: Maybe<Connected_ServiceQueryInput>;
     limit?: Maybe<Scalars['Int']>;
-    sortBy?: Maybe<Connected_ServiceSortByInput>;
 };
 
 export type QuerySettingArgs = {
@@ -299,9 +305,9 @@ export type QuerySettingArgs = {
 };
 
 export type QuerySettingsArgs = {
-    query?: Maybe<SettingQueryInput>;
     limit?: Maybe<Scalars['Int']>;
     sortBy?: Maybe<SettingSortByInput>;
+    query?: Maybe<SettingQueryInput>;
 };
 
 export type QueryTaskArgs = {
@@ -309,9 +315,9 @@ export type QueryTaskArgs = {
 };
 
 export type QueryTasksArgs = {
+    query?: Maybe<TaskQueryInput>;
     limit?: Maybe<Scalars['Int']>;
     sortBy?: Maybe<TaskSortByInput>;
-    query?: Maybe<TaskQueryInput>;
 };
 
 export type QueryUserArgs = {
@@ -319,9 +325,9 @@ export type QueryUserArgs = {
 };
 
 export type QueryUsersArgs = {
+    sortBy?: Maybe<UserSortByInput>;
     query?: Maybe<UserQueryInput>;
     limit?: Maybe<Scalars['Int']>;
-    sortBy?: Maybe<UserSortByInput>;
 };
 
 export type Setting = {
@@ -332,47 +338,50 @@ export type Setting = {
 };
 
 export type SettingInsertInput = {
-    user_id?: Maybe<Scalars['String']>;
     store_credentials_locally?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
+    user_id?: Maybe<Scalars['String']>;
 };
 
 export type SettingQueryInput = {
-    OR?: Maybe<Array<SettingQueryInput>>;
-    store_credentials_locally_exists?: Maybe<Scalars['Boolean']>;
-    _id_ne?: Maybe<Scalars['ObjectId']>;
-    user_id_gt?: Maybe<Scalars['String']>;
     _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    _id_gt?: Maybe<Scalars['ObjectId']>;
+    _id_gte?: Maybe<Scalars['ObjectId']>;
     _id_lt?: Maybe<Scalars['ObjectId']>;
-    user_id?: Maybe<Scalars['String']>;
+    user_id_lte?: Maybe<Scalars['String']>;
+    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    _id_ne?: Maybe<Scalars['ObjectId']>;
+    user_id_gte?: Maybe<Scalars['String']>;
+    AND?: Maybe<Array<SettingQueryInput>>;
+    user_id_ne?: Maybe<Scalars['String']>;
+    store_credentials_locally_exists?: Maybe<Scalars['Boolean']>;
+    store_credentials_locally?: Maybe<Scalars['Boolean']>;
+    _id_exists?: Maybe<Scalars['Boolean']>;
+    user_id_gt?: Maybe<Scalars['String']>;
+    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
+    store_credentials_locally_ne?: Maybe<Scalars['Boolean']>;
+    _id_lte?: Maybe<Scalars['ObjectId']>;
+    _id_gt?: Maybe<Scalars['ObjectId']>;
+    user_id_exists?: Maybe<Scalars['Boolean']>;
+    OR?: Maybe<Array<SettingQueryInput>>;
     user_id_lt?: Maybe<Scalars['String']>;
     user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    store_credentials_locally?: Maybe<Scalars['Boolean']>;
-    store_credentials_locally_ne?: Maybe<Scalars['Boolean']>;
-    AND?: Maybe<Array<SettingQueryInput>>;
-    user_id_lte?: Maybe<Scalars['String']>;
-    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    user_id_gte?: Maybe<Scalars['String']>;
-    user_id_ne?: Maybe<Scalars['String']>;
-    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id_gte?: Maybe<Scalars['ObjectId']>;
-    user_id_exists?: Maybe<Scalars['Boolean']>;
-    _id_exists?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
-    _id_lte?: Maybe<Scalars['ObjectId']>;
+    user_id?: Maybe<Scalars['String']>;
 };
 
 export enum SettingSortByInput {
-    IdAsc = '_ID_ASC',
-    IdDesc = '_ID_DESC',
     UserIdAsc = 'USER_ID_ASC',
     UserIdDesc = 'USER_ID_DESC',
+    IdAsc = '_ID_ASC',
+    IdDesc = '_ID_DESC',
 }
 
 export type SettingUpdateInput = {
+    store_credentials_locally_unset?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
+    _id_unset?: Maybe<Scalars['Boolean']>;
     user_id?: Maybe<Scalars['String']>;
+    user_id_unset?: Maybe<Scalars['Boolean']>;
     store_credentials_locally?: Maybe<Scalars['Boolean']>;
 };
 
@@ -380,6 +389,7 @@ export type Task = {
     __typename?: 'Task';
     _id?: Maybe<Scalars['ObjectId']>;
     body?: Maybe<Scalars['String']>;
+    date?: Maybe<Scalars['Float']>;
     props?: Maybe<Scalars['String']>;
     resolved?: Maybe<Scalars['Boolean']>;
     sender?: Maybe<Scalars['String']>;
@@ -389,105 +399,128 @@ export type Task = {
 };
 
 export type TaskInsertInput = {
-    user_id?: Maybe<Scalars['String']>;
-    service?: Maybe<Scalars['String']>;
-    sender?: Maybe<Scalars['String']>;
     body?: Maybe<Scalars['String']>;
     starred?: Maybe<Scalars['Boolean']>;
+    user_id?: Maybe<Scalars['String']>;
+    date?: Maybe<Scalars['Float']>;
     resolved?: Maybe<Scalars['Boolean']>;
-    props?: Maybe<Scalars['String']>;
     _id?: Maybe<Scalars['ObjectId']>;
+    sender?: Maybe<Scalars['String']>;
+    props?: Maybe<Scalars['String']>;
+    service?: Maybe<Scalars['String']>;
 };
 
 export type TaskQueryInput = {
-    user_id?: Maybe<Scalars['String']>;
-    user_id_gte?: Maybe<Scalars['String']>;
-    body_gt?: Maybe<Scalars['String']>;
-    props_exists?: Maybe<Scalars['Boolean']>;
-    starred_ne?: Maybe<Scalars['Boolean']>;
-    service_gt?: Maybe<Scalars['String']>;
-    service_gte?: Maybe<Scalars['String']>;
-    resolved?: Maybe<Scalars['Boolean']>;
-    body_ne?: Maybe<Scalars['String']>;
-    _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    props?: Maybe<Scalars['String']>;
-    sender_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    sender?: Maybe<Scalars['String']>;
-    user_id_lt?: Maybe<Scalars['String']>;
-    sender_lt?: Maybe<Scalars['String']>;
-    props_gt?: Maybe<Scalars['String']>;
-    sender_gt?: Maybe<Scalars['String']>;
+    props_lte?: Maybe<Scalars['String']>;
+    props_in?: Maybe<Array<Maybe<Scalars['String']>>>;
     body_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id_lte?: Maybe<Scalars['ObjectId']>;
-    resolved_ne?: Maybe<Scalars['Boolean']>;
-    body_lt?: Maybe<Scalars['String']>;
-    _id_gte?: Maybe<Scalars['ObjectId']>;
-    props_ne?: Maybe<Scalars['String']>;
-    _id_gt?: Maybe<Scalars['ObjectId']>;
-    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    sender_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    sender_ne?: Maybe<Scalars['String']>;
-    props_gte?: Maybe<Scalars['String']>;
-    props_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    AND?: Maybe<Array<TaskQueryInput>>;
-    body_gte?: Maybe<Scalars['String']>;
-    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id_lt?: Maybe<Scalars['ObjectId']>;
-    user_id_ne?: Maybe<Scalars['String']>;
-    user_id_lte?: Maybe<Scalars['String']>;
-    body_lte?: Maybe<Scalars['String']>;
-    service_exists?: Maybe<Scalars['Boolean']>;
-    body_exists?: Maybe<Scalars['Boolean']>;
     service?: Maybe<Scalars['String']>;
-    _id_ne?: Maybe<Scalars['ObjectId']>;
-    body?: Maybe<Scalars['String']>;
-    user_id_exists?: Maybe<Scalars['Boolean']>;
-    starred?: Maybe<Scalars['Boolean']>;
-    service_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    sender_gte?: Maybe<Scalars['String']>;
-    _id?: Maybe<Scalars['ObjectId']>;
-    props_lt?: Maybe<Scalars['String']>;
-    starred_exists?: Maybe<Scalars['Boolean']>;
     sender_lte?: Maybe<Scalars['String']>;
     resolved_exists?: Maybe<Scalars['Boolean']>;
-    _id_exists?: Maybe<Scalars['Boolean']>;
-    OR?: Maybe<Array<TaskQueryInput>>;
     service_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    props_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    service_ne?: Maybe<Scalars['String']>;
-    user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    user_id_gt?: Maybe<Scalars['String']>;
-    service_lt?: Maybe<Scalars['String']>;
-    sender_exists?: Maybe<Scalars['Boolean']>;
-    props_lte?: Maybe<Scalars['String']>;
+    _id_ne?: Maybe<Scalars['ObjectId']>;
+    props?: Maybe<Scalars['String']>;
+    body_exists?: Maybe<Scalars['Boolean']>;
+    sender_gte?: Maybe<Scalars['String']>;
+    _id?: Maybe<Scalars['ObjectId']>;
+    service_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    date_gt?: Maybe<Scalars['Float']>;
+    props_gt?: Maybe<Scalars['String']>;
+    sender_gt?: Maybe<Scalars['String']>;
+    date_nin?: Maybe<Array<Maybe<Scalars['Float']>>>;
     body_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    service_ne?: Maybe<Scalars['String']>;
+    date_lte?: Maybe<Scalars['Float']>;
+    sender?: Maybe<Scalars['String']>;
+    _id_exists?: Maybe<Scalars['Boolean']>;
+    props_ne?: Maybe<Scalars['String']>;
+    user_id_gt?: Maybe<Scalars['String']>;
+    OR?: Maybe<Array<TaskQueryInput>>;
+    starred?: Maybe<Scalars['Boolean']>;
+    props_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    service_gt?: Maybe<Scalars['String']>;
+    sender_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    user_id_ne?: Maybe<Scalars['String']>;
+    date_exists?: Maybe<Scalars['Boolean']>;
+    service_gte?: Maybe<Scalars['String']>;
+    AND?: Maybe<Array<TaskQueryInput>>;
+    date?: Maybe<Scalars['Float']>;
+    user_id_lte?: Maybe<Scalars['String']>;
     service_lte?: Maybe<Scalars['String']>;
+    props_gte?: Maybe<Scalars['String']>;
+    date_in?: Maybe<Array<Maybe<Scalars['Float']>>>;
+    user_id_lt?: Maybe<Scalars['String']>;
+    sender_ne?: Maybe<Scalars['String']>;
+    starred_ne?: Maybe<Scalars['Boolean']>;
+    service_exists?: Maybe<Scalars['Boolean']>;
+    starred_exists?: Maybe<Scalars['Boolean']>;
+    body_gte?: Maybe<Scalars['String']>;
+    user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    _id_lt?: Maybe<Scalars['ObjectId']>;
+    body_lt?: Maybe<Scalars['String']>;
+    user_id?: Maybe<Scalars['String']>;
+    user_id_gte?: Maybe<Scalars['String']>;
+    sender_exists?: Maybe<Scalars['Boolean']>;
+    _id_gt?: Maybe<Scalars['ObjectId']>;
+    _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
+    sender_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    body_lte?: Maybe<Scalars['String']>;
+    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
+    props_exists?: Maybe<Scalars['Boolean']>;
+    resolved_ne?: Maybe<Scalars['Boolean']>;
+    date_ne?: Maybe<Scalars['Float']>;
+    body?: Maybe<Scalars['String']>;
+    _id_lte?: Maybe<Scalars['ObjectId']>;
+    props_lt?: Maybe<Scalars['String']>;
+    body_ne?: Maybe<Scalars['String']>;
+    user_id_exists?: Maybe<Scalars['Boolean']>;
+    date_lt?: Maybe<Scalars['Float']>;
+    resolved?: Maybe<Scalars['Boolean']>;
+    date_gte?: Maybe<Scalars['Float']>;
+    service_lt?: Maybe<Scalars['String']>;
+    sender_lt?: Maybe<Scalars['String']>;
+    _id_gte?: Maybe<Scalars['ObjectId']>;
+    body_gt?: Maybe<Scalars['String']>;
+    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export enum TaskSortByInput {
-    PropsAsc = 'PROPS_ASC',
-    IdAsc = '_ID_ASC',
-    IdDesc = '_ID_DESC',
-    UserIdAsc = 'USER_ID_ASC',
-    ServiceAsc = 'SERVICE_ASC',
-    BodyAsc = 'BODY_ASC',
-    BodyDesc = 'BODY_DESC',
-    PropsDesc = 'PROPS_DESC',
     UserIdDesc = 'USER_ID_DESC',
-    ServiceDesc = 'SERVICE_DESC',
-    SenderAsc = 'SENDER_ASC',
     SenderDesc = 'SENDER_DESC',
+    DateDesc = 'DATE_DESC',
+    IdAsc = '_ID_ASC',
+    UserIdAsc = 'USER_ID_ASC',
+    ServiceDesc = 'SERVICE_DESC',
+    BodyDesc = 'BODY_DESC',
+    IdDesc = '_ID_DESC',
+    PropsDesc = 'PROPS_DESC',
+    BodyAsc = 'BODY_ASC',
+    SenderAsc = 'SENDER_ASC',
+    PropsAsc = 'PROPS_ASC',
+    ServiceAsc = 'SERVICE_ASC',
+    DateAsc = 'DATE_ASC',
 }
 
 export type TaskUpdateInput = {
-    starred?: Maybe<Scalars['Boolean']>;
+    props_unset?: Maybe<Scalars['Boolean']>;
+    body_unset?: Maybe<Scalars['Boolean']>;
     resolved?: Maybe<Scalars['Boolean']>;
+    service_unset?: Maybe<Scalars['Boolean']>;
+    date?: Maybe<Scalars['Float']>;
+    starred?: Maybe<Scalars['Boolean']>;
     props?: Maybe<Scalars['String']>;
+    body?: Maybe<Scalars['String']>;
+    service?: Maybe<Scalars['String']>;
+    sender_unset?: Maybe<Scalars['Boolean']>;
+    _id_unset?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
     user_id?: Maybe<Scalars['String']>;
-    service?: Maybe<Scalars['String']>;
+    starred_unset?: Maybe<Scalars['Boolean']>;
+    user_id_unset?: Maybe<Scalars['Boolean']>;
+    date_unset?: Maybe<Scalars['Boolean']>;
+    resolved_unset?: Maybe<Scalars['Boolean']>;
+    date_inc?: Maybe<Scalars['Float']>;
     sender?: Maybe<Scalars['String']>;
-    body?: Maybe<Scalars['String']>;
 };
 
 export type UpdateManyPayload = {
@@ -505,55 +538,54 @@ export type User = {
 };
 
 export type UserInsertInput = {
+    _id?: Maybe<Scalars['ObjectId']>;
     user_id?: Maybe<Scalars['String']>;
     username?: Maybe<Scalars['String']>;
     email?: Maybe<Scalars['String']>;
-    _id?: Maybe<Scalars['ObjectId']>;
 };
 
 export type UserQueryInput = {
-    username_exists?: Maybe<Scalars['Boolean']>;
-    _id_gte?: Maybe<Scalars['ObjectId']>;
-    username_lt?: Maybe<Scalars['String']>;
-    username_gt?: Maybe<Scalars['String']>;
-    user_id_lte?: Maybe<Scalars['String']>;
-    username?: Maybe<Scalars['String']>;
-    username_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    AND?: Maybe<Array<UserQueryInput>>;
-    email_ne?: Maybe<Scalars['String']>;
-    username_lte?: Maybe<Scalars['String']>;
-    user_id?: Maybe<Scalars['String']>;
-    _id_gt?: Maybe<Scalars['ObjectId']>;
-    email_gte?: Maybe<Scalars['String']>;
-    OR?: Maybe<Array<UserQueryInput>>;
-    email_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
     _id_in?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    email?: Maybe<Scalars['String']>;
-    user_id_ne?: Maybe<Scalars['String']>;
     username_ne?: Maybe<Scalars['String']>;
-    user_id_lt?: Maybe<Scalars['String']>;
-    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    _id?: Maybe<Scalars['ObjectId']>;
-    _id_ne?: Maybe<Scalars['ObjectId']>;
+    username?: Maybe<Scalars['String']>;
+    email_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    email_gte?: Maybe<Scalars['String']>;
     user_id_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-    username_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
-    email_lte?: Maybe<Scalars['String']>;
-    _id_lte?: Maybe<Scalars['ObjectId']>;
-    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
-    user_id_exists?: Maybe<Scalars['Boolean']>;
-    user_id_gt?: Maybe<Scalars['String']>;
-    email_lt?: Maybe<Scalars['String']>;
-    _id_lt?: Maybe<Scalars['ObjectId']>;
     email_gt?: Maybe<Scalars['String']>;
-    _id_exists?: Maybe<Scalars['Boolean']>;
+    AND?: Maybe<Array<UserQueryInput>>;
+    email_lt?: Maybe<Scalars['String']>;
+    _id_nin?: Maybe<Array<Maybe<Scalars['ObjectId']>>>;
+    username_gt?: Maybe<Scalars['String']>;
+    username_lt?: Maybe<Scalars['String']>;
+    email_lte?: Maybe<Scalars['String']>;
+    email_ne?: Maybe<Scalars['String']>;
+    _id_gt?: Maybe<Scalars['ObjectId']>;
+    user_id_lte?: Maybe<Scalars['String']>;
+    email?: Maybe<Scalars['String']>;
     user_id_gte?: Maybe<Scalars['String']>;
     username_gte?: Maybe<Scalars['String']>;
+    user_id_gt?: Maybe<Scalars['String']>;
     email_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    _id_gte?: Maybe<Scalars['ObjectId']>;
+    _id_ne?: Maybe<Scalars['ObjectId']>;
+    user_id_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    user_id_exists?: Maybe<Scalars['Boolean']>;
+    username_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+    user_id_ne?: Maybe<Scalars['String']>;
+    _id_lte?: Maybe<Scalars['ObjectId']>;
     email_exists?: Maybe<Scalars['Boolean']>;
+    user_id_lt?: Maybe<Scalars['String']>;
+    _id?: Maybe<Scalars['ObjectId']>;
+    username_lte?: Maybe<Scalars['String']>;
+    _id_exists?: Maybe<Scalars['Boolean']>;
+    user_id?: Maybe<Scalars['String']>;
+    username_exists?: Maybe<Scalars['Boolean']>;
+    username_nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+    OR?: Maybe<Array<UserQueryInput>>;
+    _id_lt?: Maybe<Scalars['ObjectId']>;
 };
 
 export enum UserSortByInput {
-    UserIdDesc = 'USER_ID_DESC',
     UsernameAsc = 'USERNAME_ASC',
     UsernameDesc = 'USERNAME_DESC',
     EmailAsc = 'EMAIL_ASC',
@@ -561,19 +593,67 @@ export enum UserSortByInput {
     IdAsc = '_ID_ASC',
     IdDesc = '_ID_DESC',
     UserIdAsc = 'USER_ID_ASC',
+    UserIdDesc = 'USER_ID_DESC',
 }
 
 export type UserUpdateInput = {
-    username?: Maybe<Scalars['String']>;
-    email?: Maybe<Scalars['String']>;
+    email_unset?: Maybe<Scalars['Boolean']>;
     _id?: Maybe<Scalars['ObjectId']>;
+    _id_unset?: Maybe<Scalars['Boolean']>;
     user_id?: Maybe<Scalars['String']>;
+    user_id_unset?: Maybe<Scalars['Boolean']>;
+    username?: Maybe<Scalars['String']>;
+    username_unset?: Maybe<Scalars['Boolean']>;
+    email?: Maybe<Scalars['String']>;
 };
+
+export type ConnectedServiceFragment = {
+    __typename?: 'Connected_service';
+} & Pick<
+    Connected_Service,
+    '_id' | 'bakalari' | 'edmodo' | 'facebook' | 'googleClassroom'
+>;
 
 export type TaskFragment = { __typename?: 'Task' } & Pick<
     Task,
-    '_id' | 'body' | 'sender' | 'service' | 'resolved' | 'starred'
+    '_id' | 'body' | 'sender' | 'date' | 'service' | 'resolved' | 'starred'
 >;
+
+export type ConnectBakalariMutationVariables = {
+    user_id: Scalars['String'];
+    value: Scalars['Boolean'];
+};
+
+export type ConnectBakalariMutation = { __typename?: 'Mutation' } & {
+    updateOneConnected_service?: Maybe<
+        { __typename?: 'Connected_service' } & ConnectedServiceFragment
+    >;
+};
+
+export type CreateDefaultConnectedServiceMutationVariables = {
+    user_id: Scalars['String'];
+};
+
+export type CreateDefaultConnectedServiceMutation = {
+    __typename?: 'Mutation';
+} & {
+    insertOneConnected_service?: Maybe<
+        { __typename?: 'Connected_service' } & ConnectedServiceFragment
+    >;
+};
+
+export type CreateManyTasksMutationVariables = {
+    tasks: Array<TaskInsertInput>;
+};
+
+export type CreateManyTasksMutation = { __typename?: 'Mutation' } & {
+    insertManyTasks?: Maybe<
+        { __typename?: 'InsertManyPayload' } & Pick<
+            InsertManyPayload,
+            'insertedIds'
+        >
+    >;
+};
 
 export type CreateTaskMutationVariables = {
     task: TaskInsertInput;
@@ -601,22 +681,204 @@ export type StarTaskMutation = { __typename?: 'Mutation' } & {
     updateOneTask?: Maybe<{ __typename?: 'Task' } & TaskFragment>;
 };
 
+export type ConnectedServicesQueryVariables = {};
+
+export type ConnectedServicesQuery = { __typename?: 'Query' } & {
+    connected_service?: Maybe<
+        { __typename?: 'Connected_service' } & ConnectedServiceFragment
+    >;
+};
+
 export type TasksQueryVariables = {};
 
 export type TasksQuery = { __typename?: 'Query' } & {
     tasks: Array<Maybe<{ __typename?: 'Task' } & TaskFragment>>;
 };
 
+export const ConnectedServiceFragmentDoc = gql`
+    fragment connectedService on Connected_service {
+        _id
+        bakalari
+        edmodo
+        facebook
+        googleClassroom
+    }
+`;
 export const TaskFragmentDoc = gql`
     fragment task on Task {
         _id
         body
         sender
+        date
         service
         resolved
         starred
     }
 `;
+export const ConnectBakalariDocument = gql`
+    mutation connectBakalari($user_id: String!, $value: Boolean!) {
+        updateOneConnected_service(
+            query: { user_id: $user_id }
+            set: { bakalari: $value }
+        ) {
+            ...connectedService
+        }
+    }
+    ${ConnectedServiceFragmentDoc}
+`;
+export type ConnectBakalariMutationFn = ApolloReactCommon.MutationFunction<
+    ConnectBakalariMutation,
+    ConnectBakalariMutationVariables
+>;
+
+/**
+ * __useConnectBakalariMutation__
+ *
+ * To run a mutation, you first call `useConnectBakalariMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConnectBakalariMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [connectBakalariMutation, { data, loading, error }] = useConnectBakalariMutation({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *      value: // value for 'value'
+ *   },
+ * });
+ */
+export function useConnectBakalariMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        ConnectBakalariMutation,
+        ConnectBakalariMutationVariables
+    >,
+) {
+    return ApolloReactHooks.useMutation<
+        ConnectBakalariMutation,
+        ConnectBakalariMutationVariables
+    >(ConnectBakalariDocument, baseOptions);
+}
+export type ConnectBakalariMutationHookResult = ReturnType<
+    typeof useConnectBakalariMutation
+>;
+export type ConnectBakalariMutationResult = ApolloReactCommon.MutationResult<
+    ConnectBakalariMutation
+>;
+export type ConnectBakalariMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    ConnectBakalariMutation,
+    ConnectBakalariMutationVariables
+>;
+export const CreateDefaultConnectedServiceDocument = gql`
+    mutation createDefaultConnectedService($user_id: String!) {
+        insertOneConnected_service(
+            data: {
+                user_id: $user_id
+                bakalari: false
+                facebook: false
+                edmodo: false
+                googleClassroom: false
+            }
+        ) {
+            ...connectedService
+        }
+    }
+    ${ConnectedServiceFragmentDoc}
+`;
+export type CreateDefaultConnectedServiceMutationFn = ApolloReactCommon.MutationFunction<
+    CreateDefaultConnectedServiceMutation,
+    CreateDefaultConnectedServiceMutationVariables
+>;
+
+/**
+ * __useCreateDefaultConnectedServiceMutation__
+ *
+ * To run a mutation, you first call `useCreateDefaultConnectedServiceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDefaultConnectedServiceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDefaultConnectedServiceMutation, { data, loading, error }] = useCreateDefaultConnectedServiceMutation({
+ *   variables: {
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useCreateDefaultConnectedServiceMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        CreateDefaultConnectedServiceMutation,
+        CreateDefaultConnectedServiceMutationVariables
+    >,
+) {
+    return ApolloReactHooks.useMutation<
+        CreateDefaultConnectedServiceMutation,
+        CreateDefaultConnectedServiceMutationVariables
+    >(CreateDefaultConnectedServiceDocument, baseOptions);
+}
+export type CreateDefaultConnectedServiceMutationHookResult = ReturnType<
+    typeof useCreateDefaultConnectedServiceMutation
+>;
+export type CreateDefaultConnectedServiceMutationResult = ApolloReactCommon.MutationResult<
+    CreateDefaultConnectedServiceMutation
+>;
+export type CreateDefaultConnectedServiceMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    CreateDefaultConnectedServiceMutation,
+    CreateDefaultConnectedServiceMutationVariables
+>;
+export const CreateManyTasksDocument = gql`
+    mutation createManyTasks($tasks: [TaskInsertInput!]!) {
+        insertManyTasks(data: $tasks) {
+            insertedIds
+        }
+    }
+`;
+export type CreateManyTasksMutationFn = ApolloReactCommon.MutationFunction<
+    CreateManyTasksMutation,
+    CreateManyTasksMutationVariables
+>;
+
+/**
+ * __useCreateManyTasksMutation__
+ *
+ * To run a mutation, you first call `useCreateManyTasksMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateManyTasksMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createManyTasksMutation, { data, loading, error }] = useCreateManyTasksMutation({
+ *   variables: {
+ *      tasks: // value for 'tasks'
+ *   },
+ * });
+ */
+export function useCreateManyTasksMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        CreateManyTasksMutation,
+        CreateManyTasksMutationVariables
+    >,
+) {
+    return ApolloReactHooks.useMutation<
+        CreateManyTasksMutation,
+        CreateManyTasksMutationVariables
+    >(CreateManyTasksDocument, baseOptions);
+}
+export type CreateManyTasksMutationHookResult = ReturnType<
+    typeof useCreateManyTasksMutation
+>;
+export type CreateManyTasksMutationResult = ApolloReactCommon.MutationResult<
+    CreateManyTasksMutation
+>;
+export type CreateManyTasksMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    CreateManyTasksMutation,
+    CreateManyTasksMutationVariables
+>;
 export const CreateTaskDocument = gql`
     mutation createTask($task: TaskInsertInput!) {
         insertOneTask(data: $task) {
@@ -769,6 +1031,62 @@ export type StarTaskMutationResult = ApolloReactCommon.MutationResult<
 export type StarTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
     StarTaskMutation,
     StarTaskMutationVariables
+>;
+export const ConnectedServicesDocument = gql`
+    query connectedServices {
+        connected_service {
+            ...connectedService
+        }
+    }
+    ${ConnectedServiceFragmentDoc}
+`;
+
+/**
+ * __useConnectedServicesQuery__
+ *
+ * To run a query within a React component, call `useConnectedServicesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useConnectedServicesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useConnectedServicesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useConnectedServicesQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<
+        ConnectedServicesQuery,
+        ConnectedServicesQueryVariables
+    >,
+) {
+    return ApolloReactHooks.useQuery<
+        ConnectedServicesQuery,
+        ConnectedServicesQueryVariables
+    >(ConnectedServicesDocument, baseOptions);
+}
+export function useConnectedServicesLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+        ConnectedServicesQuery,
+        ConnectedServicesQueryVariables
+    >,
+) {
+    return ApolloReactHooks.useLazyQuery<
+        ConnectedServicesQuery,
+        ConnectedServicesQueryVariables
+    >(ConnectedServicesDocument, baseOptions);
+}
+export type ConnectedServicesQueryHookResult = ReturnType<
+    typeof useConnectedServicesQuery
+>;
+export type ConnectedServicesLazyQueryHookResult = ReturnType<
+    typeof useConnectedServicesLazyQuery
+>;
+export type ConnectedServicesQueryResult = ApolloReactCommon.QueryResult<
+    ConnectedServicesQuery,
+    ConnectedServicesQueryVariables
 >;
 export const TasksDocument = gql`
     query tasks {

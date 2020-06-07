@@ -53,7 +53,6 @@ export const useAuth = () => {
             resetState();
             try {
                 const res = await axios.post(`/api/auth/create`, signUpBody);
-                console.log(res.data);
                 if (res.status === 201) setSuccess(true);
             } catch (err) {
                 setError(err.response.data);

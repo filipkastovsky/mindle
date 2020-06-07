@@ -10,17 +10,31 @@ export default async (nOfMessages: number, page: Page) => {
         // .forEach doesn't support async
         await page.click(`${KomensSelectors.messageListItem}:nth-child(${i})`); //! nth-child starts from 1
 
-        await page.waitFor(500); // View rerender can take up to 500ms at this point
+        await page.waitFor(600); // View rerender can take up to 14s at this point
 
         const sender = await page.$eval(
             KomensSelectors.senderDiv,
             (el) => el.textContent,
         );
 
-        const date = await page.$eval(
-            KomensSelectors.dateTd,
-            (el) => el.textContent,
-        );
+        const date = await page.$eval(KomensSelectors.dateTd, (el) => {
+            const convertBakalariDateToNum = (bakalariDate: string | null) => {
+                if (!bakalariDate) return null;
+                const [date, time] = bakalariDate.split(' ');
+                const [day, month, year] = date.split('.');
+                const [hours, minutes] = time.split(':');
+
+                return new Date(
+                    +year,
+                    +month - 1,
+                    +day,
+                    +hours,
+                    +minutes,
+                ).getTime();
+            };
+
+            return convertBakalariDateToNum(el.textContent);
+        });
 
         const body = await page.$eval(
             KomensSelectors.bodyDiv,

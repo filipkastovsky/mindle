@@ -5,13 +5,14 @@ export interface IPositionProps {
     justify?: CSSProperties['justifySelf'];
     direction?: CSSProperties['flexDirection'];
     flex?: CSSProperties['flex'];
+    width?: CSSProperties['width'];
 }
 
 export default styled.div<IPositionProps>`
     display: flex;
     flex-direction: ${({ direction = 'column' }) => direction};
     flex: ${({ flex = '1' }) => flex};
-    width: 100%;
+    width: ${({ width = '100%' }) => width};
     justify-content: ${({ justify = 'flex-start' }) => justify};
     align-items: ${({ align = 'center' }) => align};
 `;

@@ -1,7 +1,7 @@
 export default interface ITask {
     _id?: string;
     sender: string | null;
-    date?: string | null;
+    date?: number | null;
     body: string | null;
     service: string;
     starred: boolean;
