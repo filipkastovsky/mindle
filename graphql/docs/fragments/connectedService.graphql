@@ -1,0 +1,7 @@
+fragment connectedService on Connected_service {
+    _id
+    bakalari
+    edmodo
+    facebook
+    googleClassroom
+}

@@ -8,47 +8,47 @@ type Connected_service {
 }
 
 input Connected_serviceInsertInput {
-    edmodo: Boolean
-    googleClassroom: Boolean
-    _id: ObjectId
     user_id: String
     bakalari: Boolean
     facebook: Boolean
+    edmodo: Boolean
+    googleClassroom: Boolean
+    _id: ObjectId
 }
 
 input Connected_serviceQueryInput {
     user_id_lte: String
-    edmodo: Boolean
-    _id_exists: Boolean
-    _id_gt: ObjectId
-    _id_nin: [ObjectId]
-    bakalari_ne: Boolean
-    AND: [Connected_serviceQueryInput!]
-    googleClassroom_exists: Boolean
-    _id_gte: ObjectId
-    user_id_gte: String
-    facebook_exists: Boolean
-    _id_ne: ObjectId
-    _id_lt: ObjectId
-    user_id_in: [String]
-    _id: ObjectId
-    bakalari_exists: Boolean
-    user_id_gt: String
-    bakalari: Boolean
-    googleClassroom_ne: Boolean
-    user_id_nin: [String]
-    _id_in: [ObjectId]
-    facebook: Boolean
-    user_id_ne: String
-    user_id: String
-    user_id_exists: Boolean
-    OR: [Connected_serviceQueryInput!]
-    edmodo_exists: Boolean
-    user_id_lt: String
     _id_lte: ObjectId
-    facebook_ne: Boolean
-    edmodo_ne: Boolean
+    user_id: String
+    _id_exists: Boolean
+    facebook_exists: Boolean
+    user_id_exists: Boolean
+    _id_lt: ObjectId
+    edmodo_exists: Boolean
+    bakalari_exists: Boolean
+    _id_nin: [ObjectId]
     googleClassroom: Boolean
+    _id: ObjectId
+    AND: [Connected_serviceQueryInput!]
+    facebook_ne: Boolean
+    googleClassroom_ne: Boolean
+    _id_gte: ObjectId
+    googleClassroom_exists: Boolean
+    bakalari: Boolean
+    facebook: Boolean
+    user_id_lt: String
+    edmodo_ne: Boolean
+    bakalari_ne: Boolean
+    edmodo: Boolean
+    user_id_gte: String
+    OR: [Connected_serviceQueryInput!]
+    _id_gt: ObjectId
+    _id_ne: ObjectId
+    user_id_gt: String
+    user_id_ne: String
+    user_id_in: [String]
+    _id_in: [ObjectId]
+    user_id_nin: [String]
 }
 
 enum Connected_serviceSortByInput {
@@ -61,9 +61,15 @@ enum Connected_serviceSortByInput {
 input Connected_serviceUpdateInput {
     user_id: String
     bakalari: Boolean
-    facebook: Boolean
     edmodo: Boolean
+    googleClassroom_unset: Boolean
+    bakalari_unset: Boolean
     googleClassroom: Boolean
+    _id_unset: Boolean
+    user_id_unset: Boolean
+    facebook: Boolean
+    facebook_unset: Boolean
+    edmodo_unset: Boolean
     _id: ObjectId
 }
 
@@ -101,12 +107,12 @@ type Mutation {
     insertOneTask(data: TaskInsertInput!): Task
     insertOneUser(data: UserInsertInput!): User
     replaceOneConnected_service(
-        query: Connected_serviceQueryInput
         data: Connected_serviceInsertInput!
+        query: Connected_serviceQueryInput
     ): Connected_service
     replaceOneSetting(
-        query: SettingQueryInput
         data: SettingInsertInput!
+        query: SettingQueryInput
     ): Setting
     replaceOneTask(query: TaskQueryInput, data: TaskInsertInput!): Task
     replaceOneUser(query: UserQueryInput, data: UserInsertInput!): User
@@ -115,8 +121,8 @@ type Mutation {
         set: Connected_serviceUpdateInput!
     ): UpdateManyPayload
     updateManySettings(
-        query: SettingQueryInput
         set: SettingUpdateInput!
+        query: SettingQueryInput
     ): UpdateManyPayload
     updateManyTasks(
         query: TaskQueryInput
@@ -131,8 +137,8 @@ type Mutation {
         set: Connected_serviceUpdateInput!
     ): Connected_service
     updateOneSetting(
-        set: SettingUpdateInput!
         query: SettingQueryInput
+        set: SettingUpdateInput!
     ): Setting
     updateOneTask(query: TaskQueryInput, set: TaskUpdateInput!): Task
     updateOneUser(query: UserQueryInput, set: UserUpdateInput!): User
@@ -145,7 +151,7 @@ type Mutation {
         query: SettingQueryInput
     ): Setting
     upsertOneTask(query: TaskQueryInput, data: TaskInsertInput!): Task
-    upsertOneUser(data: UserInsertInput!, query: UserQueryInput): User
+    upsertOneUser(query: UserQueryInput, data: UserInsertInput!): User
 }
 
 scalar ObjectId
@@ -153,27 +159,27 @@ scalar ObjectId
 type Query {
     connected_service(query: Connected_serviceQueryInput): Connected_service
     connected_services(
+        sortBy: Connected_serviceSortByInput
         query: Connected_serviceQueryInput
         limit: Int = 100
-        sortBy: Connected_serviceSortByInput
     ): [Connected_service]!
     setting(query: SettingQueryInput): Setting
     settings(
-        query: SettingQueryInput
         limit: Int = 100
         sortBy: SettingSortByInput
+        query: SettingQueryInput
     ): [Setting]!
     task(query: TaskQueryInput): Task
     tasks(
+        query: TaskQueryInput
         limit: Int = 100
         sortBy: TaskSortByInput
-        query: TaskQueryInput
     ): [Task]!
     user(query: UserQueryInput): User
     users(
+        sortBy: UserSortByInput
         query: UserQueryInput
         limit: Int = 100
-        sortBy: UserSortByInput
     ): [User]!
 }
 
@@ -184,53 +190,57 @@ type Setting {
 }
 
 input SettingInsertInput {
-    user_id: String
     store_credentials_locally: Boolean
     _id: ObjectId
+    user_id: String
 }
 
 input SettingQueryInput {
-    OR: [SettingQueryInput!]
-    store_credentials_locally_exists: Boolean
-    _id_ne: ObjectId
-    user_id_gt: String
     _id_in: [ObjectId]
-    _id_gt: ObjectId
+    _id_gte: ObjectId
     _id_lt: ObjectId
-    user_id: String
+    user_id_lte: String
+    user_id_nin: [String]
+    _id_ne: ObjectId
+    user_id_gte: String
+    AND: [SettingQueryInput!]
+    user_id_ne: String
+    store_credentials_locally_exists: Boolean
+    store_credentials_locally: Boolean
+    _id_exists: Boolean
+    user_id_gt: String
+    _id_nin: [ObjectId]
+    store_credentials_locally_ne: Boolean
+    _id_lte: ObjectId
+    _id_gt: ObjectId
+    user_id_exists: Boolean
+    OR: [SettingQueryInput!]
     user_id_lt: String
     user_id_in: [String]
-    store_credentials_locally: Boolean
-    store_credentials_locally_ne: Boolean
-    AND: [SettingQueryInput!]
-    user_id_lte: String
-    _id_nin: [ObjectId]
-    user_id_gte: String
-    user_id_ne: String
-    user_id_nin: [String]
-    _id_gte: ObjectId
-    user_id_exists: Boolean
-    _id_exists: Boolean
     _id: ObjectId
-    _id_lte: ObjectId
+    user_id: String
 }
 
 enum SettingSortByInput {
-    _ID_ASC
-    _ID_DESC
     USER_ID_ASC
     USER_ID_DESC
+    _ID_ASC
+    _ID_DESC
 }
 
 input SettingUpdateInput {
+    store_credentials_locally_unset: Boolean
     _id: ObjectId
+    _id_unset: Boolean
     user_id: String
+    user_id_unset: Boolean
     store_credentials_locally: Boolean
 }
 
 type Task {
     _id: ObjectId
     body: String
+    date: Float
     props: String
     resolved: Boolean
     sender: String
@@ -240,105 +250,128 @@ type Task {
 }
 
 input TaskInsertInput {
-    user_id: String
-    service: String
-    sender: String
     body: String
     starred: Boolean
+    user_id: String
+    date: Float
     resolved: Boolean
-    props: String
     _id: ObjectId
+    sender: String
+    props: String
+    service: String
 }
 
 input TaskQueryInput {
-    user_id: String
-    user_id_gte: String
-    body_gt: String
-    props_exists: Boolean
-    starred_ne: Boolean
-    service_gt: String
-    service_gte: String
-    resolved: Boolean
-    body_ne: String
-    _id_in: [ObjectId]
-    props: String
-    sender_in: [String]
-    sender: String
-    user_id_lt: String
-    sender_lt: String
-    props_gt: String
-    sender_gt: String
+    props_lte: String
+    props_in: [String]
     body_nin: [String]
-    _id_lte: ObjectId
-    resolved_ne: Boolean
-    body_lt: String
-    _id_gte: ObjectId
-    props_ne: String
-    _id_gt: ObjectId
-    _id_nin: [ObjectId]
-    sender_nin: [String]
-    sender_ne: String
-    props_gte: String
-    props_nin: [String]
-    AND: [TaskQueryInput!]
-    body_gte: String
-    user_id_nin: [String]
-    _id_lt: ObjectId
-    user_id_ne: String
-    user_id_lte: String
-    body_lte: String
-    service_exists: Boolean
-    body_exists: Boolean
     service: String
-    _id_ne: ObjectId
-    body: String
-    user_id_exists: Boolean
-    starred: Boolean
-    service_nin: [String]
-    sender_gte: String
-    _id: ObjectId
-    props_lt: String
-    starred_exists: Boolean
     sender_lte: String
     resolved_exists: Boolean
-    _id_exists: Boolean
-    OR: [TaskQueryInput!]
     service_in: [String]
-    props_in: [String]
-    service_ne: String
-    user_id_in: [String]
-    user_id_gt: String
-    service_lt: String
-    sender_exists: Boolean
-    props_lte: String
+    _id_ne: ObjectId
+    props: String
+    body_exists: Boolean
+    sender_gte: String
+    _id: ObjectId
+    service_nin: [String]
+    date_gt: Float
+    props_gt: String
+    sender_gt: String
+    date_nin: [Float]
     body_in: [String]
+    service_ne: String
+    date_lte: Float
+    sender: String
+    _id_exists: Boolean
+    props_ne: String
+    user_id_gt: String
+    OR: [TaskQueryInput!]
+    starred: Boolean
+    props_nin: [String]
+    service_gt: String
+    sender_nin: [String]
+    user_id_ne: String
+    date_exists: Boolean
+    service_gte: String
+    AND: [TaskQueryInput!]
+    date: Float
+    user_id_lte: String
     service_lte: String
+    props_gte: String
+    date_in: [Float]
+    user_id_lt: String
+    sender_ne: String
+    starred_ne: Boolean
+    service_exists: Boolean
+    starred_exists: Boolean
+    body_gte: String
+    user_id_in: [String]
+    _id_lt: ObjectId
+    body_lt: String
+    user_id: String
+    user_id_gte: String
+    sender_exists: Boolean
+    _id_gt: ObjectId
+    _id_in: [ObjectId]
+    sender_in: [String]
+    body_lte: String
+    _id_nin: [ObjectId]
+    props_exists: Boolean
+    resolved_ne: Boolean
+    date_ne: Float
+    body: String
+    _id_lte: ObjectId
+    props_lt: String
+    body_ne: String
+    user_id_exists: Boolean
+    date_lt: Float
+    resolved: Boolean
+    date_gte: Float
+    service_lt: String
+    sender_lt: String
+    _id_gte: ObjectId
+    body_gt: String
+    user_id_nin: [String]
 }
 
 enum TaskSortByInput {
-    PROPS_ASC
-    _ID_ASC
-    _ID_DESC
-    USER_ID_ASC
-    SERVICE_ASC
-    BODY_ASC
-    BODY_DESC
-    PROPS_DESC
     USER_ID_DESC
-    SERVICE_DESC
-    SENDER_ASC
     SENDER_DESC
+    DATE_DESC
+    _ID_ASC
+    USER_ID_ASC
+    SERVICE_DESC
+    BODY_DESC
+    _ID_DESC
+    PROPS_DESC
+    BODY_ASC
+    SENDER_ASC
+    PROPS_ASC
+    SERVICE_ASC
+    DATE_ASC
 }
 
 input TaskUpdateInput {
-    starred: Boolean
+    props_unset: Boolean
+    body_unset: Boolean
     resolved: Boolean
+    service_unset: Boolean
+    date: Float
+    starred: Boolean
     props: String
+    body: String
+    service: String
+    sender_unset: Boolean
+    _id_unset: Boolean
     _id: ObjectId
     user_id: String
-    service: String
+    starred_unset: Boolean
+    user_id_unset: Boolean
+    date_unset: Boolean
+    resolved_unset: Boolean
+    date_inc: Float
     sender: String
-    body: String
 }
 
 type UpdateManyPayload {
@@ -354,55 +387,54 @@ type User {
 }
 
 input UserInsertInput {
+    _id: ObjectId
     user_id: String
     username: String
     email: String
-    _id: ObjectId
 }
 
 input UserQueryInput {
-    username_exists: Boolean
-    _id_gte: ObjectId
-    username_lt: String
-    username_gt: String
-    user_id_lte: String
-    username: String
-    username_in: [String]
-    AND: [UserQueryInput!]
-    email_ne: String
-    username_lte: String
-    user_id: String
-    _id_gt: ObjectId
-    email_gte: String
-    OR: [UserQueryInput!]
-    email_nin: [String]
     _id_in: [ObjectId]
-    email: String
-    user_id_ne: String
     username_ne: String
-    user_id_lt: String
-    user_id_nin: [String]
-    _id: ObjectId
-    _id_ne: ObjectId
+    username: String
+    email_nin: [String]
+    email_gte: String
     user_id_in: [String]
-    username_nin: [String]
-    email_lte: String
-    _id_lte: ObjectId
-    _id_nin: [ObjectId]
-    user_id_exists: Boolean
-    user_id_gt: String
-    email_lt: String
-    _id_lt: ObjectId
     email_gt: String
-    _id_exists: Boolean
+    AND: [UserQueryInput!]
+    email_lt: String
+    _id_nin: [ObjectId]
+    username_gt: String
+    username_lt: String
+    email_lte: String
+    email_ne: String
+    _id_gt: ObjectId
+    user_id_lte: String
+    email: String
     user_id_gte: String
     username_gte: String
+    user_id_gt: String
     email_in: [String]
+    _id_gte: ObjectId
+    _id_ne: ObjectId
+    user_id_nin: [String]
+    user_id_exists: Boolean
+    username_in: [String]
+    user_id_ne: String
+    _id_lte: ObjectId
     email_exists: Boolean
+    user_id_lt: String
+    _id: ObjectId
+    username_lte: String
+    _id_exists: Boolean
+    user_id: String
+    username_exists: Boolean
+    username_nin: [String]
+    OR: [UserQueryInput!]
+    _id_lt: ObjectId
 }
 
 enum UserSortByInput {
-    USER_ID_DESC
     USERNAME_ASC
     USERNAME_DESC
     EMAIL_ASC
@@ -410,11 +442,16 @@ enum UserSortByInput {
     _ID_ASC
     _ID_DESC
     USER_ID_ASC
+    USER_ID_DESC
 }
 
 input UserUpdateInput {
-    username: String
-    email: String
+    email_unset: Boolean
     _id: ObjectId
+    _id_unset: Boolean
     user_id: String
+    user_id_unset: Boolean
+    username: String
+    username_unset: Boolean
+    email: String
 }

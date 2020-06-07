@@ -2,6 +2,7 @@ fragment task on Task {
     _id
     body
     sender
+    date
     service
     resolved
     starred

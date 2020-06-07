@@ -6,5 +6,6 @@ export default async () => {
         defaultViewport: { width: 1280, height: 720 },
     });
     const page = await browser.newPage();
+    page.setDefaultNavigationTimeout(60000);
     return { browser, page };
 };

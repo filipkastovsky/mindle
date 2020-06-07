@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ExitToApp } from '@material-ui/icons';
+import { ExitToAppRounded } from '@material-ui/icons';
 import Colors from '../../theme/Colors';
 import withRipple from '../withRipple';
 
@@ -17,7 +17,7 @@ const HeaderContainer = styled.div`
     align-items: center;
 `;
 
-const ExitToAppWithRipple = withRipple(ExitToApp);
+const ExitToAppWithRipple = withRipple(ExitToAppRounded);
 
 const Header: React.FC<IHeaderProps> = ({ signedIn = false, onSignOut }) => {
     return (

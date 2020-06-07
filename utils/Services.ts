@@ -1,5 +1,5 @@
 enum Services {
-    Bakalari = 'Bakaláři',
+    Bakalari = 'bakalari',
 }
 
 export default Services;

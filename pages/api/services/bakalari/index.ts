@@ -23,6 +23,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
             );
 
         const { browser, page } = await launchBrowser();
+
         await page.goto(req.body.url + Urls.root);
         await login(req.body, page);
 
@@ -34,6 +35,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
 
         res.status(200).json({ statusCode: 200, data: { tasks } });
     } catch (err) {
+        console.error(err);
         res.status(err?.statusCode || 500).json({
             statusCode: err?.statusCode || 500,
             message: err.message,

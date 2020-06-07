@@ -1,0 +1,13 @@
+mutation createDefaultConnectedService($user_id: String!) {
+    insertOneConnected_service(
+        data: {
+            user_id: $user_id
+            bakalari: false
+            facebook: false
+            edmodo: false
+            googleClassroom: false
+        }
+    ) {
+        ...connectedService
+    }
+}

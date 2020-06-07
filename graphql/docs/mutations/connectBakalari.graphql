@@ -1,0 +1,8 @@
+mutation connectBakalari($user_id: String!, $value: Boolean!) {
+    updateOneConnected_service(
+        query: { user_id: $user_id }
+        set: { bakalari: $value }
+    ) {
+        ...connectedService
+    }
+}

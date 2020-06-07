@@ -1,5 +1,6 @@
 import React, { useMemo, createContext, FC, useContext } from 'react';
 import { object, string, ref, ObjectSchema, boolean } from 'yup';
+import BakalariReqBody from '../../pages/api/services/bakalari/interfaces/IReqBody';
 
 export interface ValidationSchemasContextState {
     CreateAccountSchema: ObjectSchema<
@@ -18,6 +19,7 @@ export interface ValidationSchemasContextState {
             password: string;
         }
     >;
+    BakalariCredsSchema: ObjectSchema<object & BakalariReqBody>;
 }
 
 const defaultValue: ValidationSchemasContextState = {
@@ -32,7 +34,12 @@ const defaultValue: ValidationSchemasContextState = {
     LoginSchema: object().shape({
         email: string().required(),
         password: string().required(),
-    })!,
+    }),
+    BakalariCredsSchema: object().shape({
+        url: string().required(),
+        username: string().required(),
+        password: string().required(),
+    }),
 };
 
 interface ContextProps {}
@@ -47,6 +54,8 @@ export const ValidationSchemasProvider: FC<ContextProps> = ({ children }) => {
     const fields = useMemo(
         () => ({
             email: 'Email',
+            username: 'Username',
+            url: 'Url',
             password: 'Password',
             confirmPassword: 'Confirm password',
             terms: 'Terms and Conditions',
@@ -59,6 +68,7 @@ export const ValidationSchemasProvider: FC<ContextProps> = ({ children }) => {
         () => ({
             required: 'is required',
             email: 'Invalid email',
+            url: 'Invalid url',
             passwordsDoNotMatch: 'Passwords do not match',
             mustBeAccepted: 'must be accepted',
         }),
@@ -99,6 +109,17 @@ export const ValidationSchemasProvider: FC<ContextProps> = ({ children }) => {
                 email: string()
                     .required(`${fields.email} ${validationMsgs.required}`)
                     .email(validationMsgs.email),
+                password: string().required(
+                    `${fields.password} ${validationMsgs.required}`,
+                ),
+            }),
+            BakalariCredsSchema: object().shape({
+                url: string()
+                    .required(`${fields.url} ${validationMsgs.required}`)
+                    .url(validationMsgs.url),
+                username: string().required(
+                    `${fields.username} ${validationMsgs.required}`,
+                ),
                 password: string().required(
                     `${fields.password} ${validationMsgs.required}`,
                 ),

@@ -1,0 +1,5 @@
+mutation createManyTasks($tasks: [TaskInsertInput!]!) {
+    insertManyTasks(data: $tasks) {
+        insertedIds
+    }
+}
