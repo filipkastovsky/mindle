@@ -4,12 +4,20 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 import Services from '../utils/Services';
 import { getAccessToken } from '../graphql/utils/getAccessToken';
 import IReqBody from '../pages/api/services/bakalari/interfaces/IReqBody';
+import { ITimestampData } from '../interfaces/ITimestampData';
 
 export const useTasks = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [fetchingTasks, setFetchingTasks] = useState<boolean>(false);
     const [error, setError] = useState<IApiResponse<undefined> | undefined>();
+    const [timestamp, setTimestamp] = useState<number>(0);
 
+    const resetState = useCallback(() => {
+        setLoading(true);
+        setError(undefined);
+    }, []);
+
+    // Check loading status
     useEffect(() => {
         if (fetchingTasks) {
             const interval = setInterval(async () => {
@@ -28,11 +36,6 @@ export const useTasks = () => {
             }, 5000);
         }
     }, [fetchingTasks]);
-
-    const resetState = useCallback(() => {
-        setLoading(true);
-        setError(undefined);
-    }, []);
 
     const fetchTasks = useCallback(
         async (
@@ -60,7 +63,13 @@ export const useTasks = () => {
         async (token = getAccessToken()) => {
             resetState();
             try {
-                await axios.post('/api/tasks/reset-timestamp', { token });
+                const res = (
+                    await axios.put('/api/tasks/timestamp', {
+                        token,
+                    })
+                ).data as ITimestampData;
+
+                setTimestamp(res?.timestamp || 0);
             } catch (err) {
                 console.error(err.response.data || err);
             } finally {
@@ -70,9 +79,36 @@ export const useTasks = () => {
         [resetState],
     );
 
+    const getTimestamp = useCallback(
+        async (token = getAccessToken()) => {
+            resetState();
+            try {
+                const res = (
+                    await axios.post('/api/tasks/timestamp', {
+                        token,
+                    })
+                ).data as ITimestampData;
+                console.log(res);
+                return res?.timestamp;
+            } catch (err) {
+                console.error(err.response.data || err);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [resetState],
+    );
+
+    const updateTimestamp = useCallback(
+        async () => setTimestamp((await getTimestamp()) || 0),
+        [getTimestamp],
+    );
+
     return {
         fetchTasks,
         resetTimestamp,
+        updateTimestamp,
+        timestamp,
         loading,
         error,
         fetchingTasks,

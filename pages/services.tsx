@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import withPage from '../components/withPage';
 import Label from '../components/Label/Label';
-
 import Position from '../components/Position/Position';
 import { useConnectedServicesQuery } from '../graphql/gen';
 import { useLoading } from '../context/Loading';
@@ -9,16 +8,15 @@ import Paper from '../components/Paper/Paper';
 import Logo from '../components/Logo/Logo';
 import withRipple from '../components/withRipple';
 import { useTasks } from '../hooks/useTasks';
-import { CircularProgress, Modal } from '@material-ui/core';
-import ModalContainer from '../components/ModalContainer/ModalContainer';
+import { CircularProgress } from '@material-ui/core';
 import Input from '../components/Input/Input';
-import styled from 'styled-components';
 import Button, { ButtonRoles } from '../components/Button/Button';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import { useValidationSchemas } from '../context/ValidationSchemas';
 import { useFormik } from 'formik';
 import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import { firstObjValue } from '../utils/firstObjValue';
+import { Modal } from '../components/Modal/Modal';
 
 const LogoWithRipple = withRipple(Logo);
 
@@ -89,71 +87,49 @@ const Services: React.FC = () => {
                         disabled={!data?.connected_service?.googleClassroom}
                         src="/icons/google.png"
                     />
-                    <StyledModal
+                    <Modal
                         open={isModalOpen}
-                        disableAutoFocus
-                        disableEnforceFocus
-                        disableRestoreFocus
                         onBackdropClick={() => setIsModalOpen(false)}
                     >
-                        <ModalContainer>
-                            <Position align="center" justify="center">
-                                <StyledPaper>
-                                    <Position>
-                                        <Logo src="/icons/bakalari.png"></Logo>
-                                        <Input
-                                            label="Url"
-                                            value={values.url}
-                                            onChange={onChange('url')}
-                                            error={!!errors.url}
-                                        ></Input>
-                                        <Input
-                                            label="Username"
-                                            value={values.username}
-                                            onChange={onChange('username')}
-                                            error={!!errors.username}
-                                        ></Input>
-                                        <Input
-                                            label="Password"
-                                            value={values.password}
-                                            onChange={onChange('password')}
-                                            type="password"
-                                            error={!!errors.password}
-                                        ></Input>
-                                        <Position
-                                            justify="flex-start"
-                                            align="flex-start"
-                                        >
-                                            <ErrorMessage>
-                                                {firstObjValue(errors) || ''}
-                                            </ErrorMessage>
-                                        </Position>
-
-                                        <Button
-                                            role={ButtonRoles.Primary}
-                                            onClick={onSubmit}
-                                        >
-                                            Fetch
-                                        </Button>
-                                    </Position>
-                                </StyledPaper>
+                        <Position>
+                            <Logo src="/icons/bakalari.png"></Logo>
+                            <Input
+                                label="Url"
+                                value={values.url}
+                                onChange={onChange('url')}
+                                error={!!errors.url}
+                            ></Input>
+                            <Input
+                                label="Username"
+                                value={values.username}
+                                onChange={onChange('username')}
+                                error={!!errors.username}
+                            ></Input>
+                            <Input
+                                label="Password"
+                                value={values.password}
+                                onChange={onChange('password')}
+                                type="password"
+                                error={!!errors.password}
+                            ></Input>
+                            <Position justify="flex-start" align="flex-start">
+                                <ErrorMessage>
+                                    {firstObjValue(errors) || ''}
+                                </ErrorMessage>
                             </Position>
-                        </ModalContainer>
-                    </StyledModal>
+
+                            <Button
+                                role={ButtonRoles.Primary}
+                                onClick={onSubmit}
+                            >
+                                Fetch
+                            </Button>
+                        </Position>
+                    </Modal>
                 </Position>
             </Paper>
         </>
     );
 };
-
-const StyledModal = styled(Modal)`
-    * {
-        outline: none;
-    }
-`;
-
-const StyledPaper = styled(Paper)`
-    padding: 5%;
-`;
 
 export default withPage(Services);

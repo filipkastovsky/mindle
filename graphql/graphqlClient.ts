@@ -38,7 +38,7 @@ const handleFetch = (access_token: string) => {
 };
 
 const isTokenValidOrUndefined = () =>
-    !!getAccessToken() && isJwtExpired(getAccessToken()!);
+    !(!!getAccessToken() && isJwtExpired(getAccessToken()!));
 
 const handleError: HandleError = () => {
     localStorage.clear();

@@ -49,13 +49,13 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
             if (service === 'bakalari') {
                 axios
                     .post(
-                        `https://${req.headers.host}/api/services/bakalari`,
+                        `http://${req.headers.host}/api/services/bakalari`,
                         serviceCredentials.bakalari,
                     )
                     .then(({ data }) => data.data.tasks as ITask[])
                     .then((tasks) => {
                         const userTasks = tasks
-                            // Don't reinsert old items
+                            // Don't reinsert old items (News sync)
                             .filter((task) =>
                                 task.date ? task.date > lastTimestamp : true,
                             )
