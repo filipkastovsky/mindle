@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import { ThemeProvider, CssBaseline, StylesProvider } from '@material-ui/core';
 import theme from '../theme';
 import { AppPropsType } from 'next/dist/next-server/lib/utils';
 import graphqlClient from '../graphql/graphqlClient';
@@ -13,7 +13,7 @@ const App = ({ Component, pageProps }: AppPropsType) => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
-            jssStyles!.parentElement!.removeChild(jssStyles);
+            jssStyles!.parentNode!.removeChild(jssStyles);
         }
     }, []);
 
@@ -28,12 +28,14 @@ const App = ({ Component, pageProps }: AppPropsType) => {
             </Head>
             <ValidationSchemasProvider>
                 <ApolloProvider client={graphqlClient()}>
-                    <ThemeProvider theme={theme}>
-                        <LoadingProvider>
-                            <CssBaseline />
-                            <Component {...pageProps} />
-                        </LoadingProvider>
-                    </ThemeProvider>
+                    <StylesProvider injectFirst>
+                        <ThemeProvider theme={theme}>
+                            <LoadingProvider>
+                                <CssBaseline />
+                                <Component {...pageProps} />
+                            </LoadingProvider>
+                        </ThemeProvider>
+                    </StylesProvider>
                 </ApolloProvider>
             </ValidationSchemasProvider>
         </>

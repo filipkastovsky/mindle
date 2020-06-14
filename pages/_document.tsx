@@ -8,6 +8,8 @@ import NextDocument, {
 } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme';
+import { ServerStyleSheet } from 'styled-components';
+import flush from 'styled-jsx/server';
 
 //! Resolution order
 //
@@ -33,26 +35,34 @@ import theme from '../theme';
 
 export default class Document extends NextDocument {
     static getInitialProps = async (ctx: DocumentContext) => {
-        // Render app and page and get the context of the page with collected side effects.
+        const sheet = new ServerStyleSheet();
         const sheets = new ServerStyleSheets();
         const originalRenderPage = ctx.renderPage;
 
-        ctx.renderPage = () =>
-            originalRenderPage({
-                enhanceApp: (App) => (props) =>
-                    sheets.collect(<App {...props} />),
-            });
+        try {
+            ctx.renderPage = () =>
+                originalRenderPage({
+                    enhanceApp: (App) => (props) =>
+                        sheet.collectStyles(sheets.collect(<App {...props} />)),
+                });
 
-        const initialProps = await NextDocument.getInitialProps(ctx);
+            const initialProps = await NextDocument.getInitialProps(ctx);
 
-        return {
-            ...initialProps,
-            // Styles fragment is rendered after the app and page rendering finish.
-            styles: [
-                ...React.Children.toArray(initialProps.styles),
-                sheets.getStyleElement(),
-            ],
-        };
+            return {
+                ...initialProps,
+                styles: (
+                    <>
+                        {initialProps.styles}
+
+                        {sheets.getStyleElement()}
+                        {sheet.getStyleElement()}
+                        {flush() || null}
+                    </>
+                ),
+            };
+        } finally {
+            // sheet.seal();
+        }
     };
 
     render() {
