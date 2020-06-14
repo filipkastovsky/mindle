@@ -39,7 +39,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
         const client = createApolloClient(req.body.token);
         const connectedServices = await getConnectedServicesAsync(client);
 
-        const lastTimestamp = await timestampStore.getItem(sub);
+        const lastTimestamp = (await timestampStore.getItem(sub)) ?? 0;
 
         if (!connectedServices?.length)
             throw new ApiError(400, 'No connected services');
