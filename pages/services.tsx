@@ -87,47 +87,48 @@ const Services: React.FC = () => {
                         disabled={!data?.connected_service?.googleClassroom}
                         src="/icons/google.png"
                     />
-                    <Modal
-                        open={isModalOpen}
-                        onBackdropClick={() => setIsModalOpen(false)}
-                    >
-                        <Position>
-                            <Logo src="/icons/bakalari.png"></Logo>
-                            <Input
-                                label="Url"
-                                value={values.url}
-                                onChange={onChange('url')}
-                                error={!!errors.url}
-                            ></Input>
-                            <Input
-                                label="Username"
-                                value={values.username}
-                                onChange={onChange('username')}
-                                error={!!errors.username}
-                            ></Input>
-                            <Input
-                                label="Password"
-                                value={values.password}
-                                onChange={onChange('password')}
-                                type="password"
-                                error={!!errors.password}
-                            ></Input>
-                            <Position justify="flex-start" align="flex-start">
-                                <ErrorMessage>
-                                    {firstObjValue(errors) || ''}
-                                </ErrorMessage>
-                            </Position>
-
-                            <Button
-                                role={ButtonRoles.Primary}
-                                onClick={onSubmit}
-                            >
-                                Fetch
-                            </Button>
-                        </Position>
-                    </Modal>
                 </Position>
             </Paper>
+            <Label></Label>
+            {!loading &&
+                !data?.connected_service?.bakalari &&
+                'Link a service in settings to start fetching'}
+            <Modal
+                open={isModalOpen}
+                onBackdropClick={() => setIsModalOpen(false)}
+            >
+                <Position>
+                    <Logo src="/icons/bakalari.png"></Logo>
+                    <Input
+                        label="Url"
+                        value={values.url}
+                        onChange={onChange('url')}
+                        error={!!errors.url}
+                    ></Input>
+                    <Input
+                        label="Username"
+                        value={values.username}
+                        onChange={onChange('username')}
+                        error={!!errors.username}
+                    ></Input>
+                    <Input
+                        label="Password"
+                        value={values.password}
+                        onChange={onChange('password')}
+                        type="password"
+                        error={!!errors.password}
+                    ></Input>
+                    <Position justify="flex-start" align="flex-start">
+                        <ErrorMessage>
+                            {firstObjValue(errors) || ''}
+                        </ErrorMessage>
+                    </Position>
+
+                    <Button role={ButtonRoles.Primary} onClick={onSubmit}>
+                        Fetch
+                    </Button>
+                </Position>
+            </Modal>
         </>
     );
 };

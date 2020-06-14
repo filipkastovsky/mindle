@@ -157,18 +157,17 @@ const News: React.FC = () => {
                         error={!!errors.sender}
                     ></Input>
                     <Input
+                        multiline
                         label="Body"
                         value={values.body}
                         onChange={onChange('body')}
                         error={!!errors.body}
                     ></Input>
-
                     <Position justify="flex-start" align="flex-start">
                         <ErrorMessage>
                             {firstObjValue(errors) || ''}
                         </ErrorMessage>
                     </Position>
-
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
                         Create
                     </Button>

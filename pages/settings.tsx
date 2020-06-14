@@ -35,6 +35,7 @@ const Settings: React.FC = () => {
         loading: tasksLoading,
         timestamp,
         resetTimestamp,
+        updateTimestamp,
     } = useTasks();
 
     const loading =
@@ -48,9 +49,9 @@ const Settings: React.FC = () => {
 
     const { active, setActive } = useLoading();
 
-    // useEffect(() => {
-    //     updateTimestamp();
-    // }, []);
+    useEffect(() => {
+        updateTimestamp();
+    }, []);
 
     useEffect(() => {
         error && console.error(error);
@@ -118,7 +119,7 @@ const Settings: React.FC = () => {
                         </Position>
                     </PaperWithButton>
                 ) : (
-                    'Link a service to start using News sync'
+                    !loading && 'Link a service to start using News sync'
                 )
             }
         </>
