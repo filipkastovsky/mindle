@@ -49,7 +49,7 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
             if (service === 'bakalari') {
                 axios
                     .post(
-                        `http://${req.headers.host}/api/services/bakalari`,
+                        `https://${req.headers.host}/api/services/bakalari`,
                         serviceCredentials.bakalari,
                     )
                     .then(({ data }) => data.data.tasks as ITask[])
