@@ -39,8 +39,14 @@ const Services: React.FC = () => {
         validationSchema: BakalariCredsSchema,
         validateOnChange: false,
         onSubmit: (values) => {
-            fetchTasks({ bakalari: values });
             setIsModalOpen(false);
+            // Remove trailing slash
+            if (values.url.endsWith('/'))
+                return fetchTasks({
+                    bakalari: { ...values, url: values.url.slice(0, -1) },
+                });
+
+            return fetchTasks({ bakalari: values });
         },
     });
 
@@ -71,7 +77,10 @@ const Services: React.FC = () => {
                     ) : (
                         <LogoWithRipple
                             disabled={!data?.connected_service?.bakalari}
-                            onClick={() => setIsModalOpen(true)}
+                            onClick={() =>
+                                data?.connected_service?.bakalari &&
+                                setIsModalOpen(true)
+                            }
                             src="/icons/bakalari.png"
                         />
                     )}

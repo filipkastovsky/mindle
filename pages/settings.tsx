@@ -51,7 +51,7 @@ const Settings: React.FC = () => {
 
     useEffect(() => {
         updateTimestamp();
-    }, []);
+    }, [updateTimestamp]);
 
     useEffect(() => {
         error && console.error(error);

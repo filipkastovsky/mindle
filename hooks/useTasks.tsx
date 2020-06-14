@@ -88,7 +88,6 @@ export const useTasks = () => {
                         token,
                     })
                 ).data as ITimestampData;
-                console.log(res);
                 return res?.timestamp;
             } catch (err) {
                 console.error(err.response.data || err);
