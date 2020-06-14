@@ -8,7 +8,7 @@ import timestampStore from '../utils/timestampStore';
 
 export default async (req: IApiRequest, res: NextApiResponse) => {
     try {
-        if (req.method !== 'POST')
+        if (!req?.method || !['POST', 'PUT'].includes(req?.method))
             throw new ApiError(405, 'Unrecognized request method');
 
         if (!req.body.token)
@@ -16,9 +16,11 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
 
         const { sub } = jwtDecode(req.body.token) as IDecodedJwt;
 
-        await timestampStore.setItem(sub, 0);
+        if (req.method === 'PUT') await timestampStore.setItem(sub, 0);
+
         res.status(200).json({
             statusCode: 200,
+            timestamp: await timestampStore.getItem(sub),
         });
     } catch (err) {
         console.error(err);
