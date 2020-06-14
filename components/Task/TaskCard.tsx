@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';
 import { IPaperProps } from '../Paper/Paper';
+import { formatDate } from '../../utils/formatDate';
 
 type ClickHandlerType = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>,
@@ -51,7 +52,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
         >
             <TaskTitle>{sender}</TaskTitle>
             <TaskService>{service}</TaskService>
-            <TaskDate>{date}</TaskDate>
+            {date && <TaskDate>{formatDate(date)}</TaskDate>}
             <TaskBody>{body}</TaskBody>
             <TaskActions
                 {...{

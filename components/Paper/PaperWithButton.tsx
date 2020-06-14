@@ -7,7 +7,7 @@ export interface IPaperWithButtonProps {
     PaperProps?: IPaperProps;
     ButtonContent: ReactNode;
     buttonRole?: IButtonProps['role'];
-    onButtonClick: IButtonProps['onClick'];
+    onButtonClick: () => void;
 }
 
 const StyledPaper = styled(Paper)<IPaperProps>`
@@ -34,10 +34,7 @@ const PaperWithButton: React.FC<IPaperWithButtonProps> = ({
     return (
         <StyledPaper {...PaperProps}>
             <div>{children}</div>
-            <StyledButton
-                role={buttonRole}
-                onClick={(e: any) => onButtonClick?.(e)}
-            >
+            <StyledButton role={buttonRole} onClick={() => onButtonClick()}>
                 {ButtonContent}
             </StyledButton>
         </StyledPaper>

@@ -1,5 +1,5 @@
 query tasks {
-    tasks {
+    tasks(sortBy: DATE_DESC) {
         ...task
     }
 }

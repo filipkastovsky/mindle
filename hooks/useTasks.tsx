@@ -12,6 +12,11 @@ export const useTasks = () => {
     const [error, setError] = useState<IApiResponse<undefined> | undefined>();
     const [timestamp, setTimestamp] = useState<number>(0);
 
+    const resetState = useCallback(() => {
+        setLoading(true);
+        setError(undefined);
+    }, []);
+
     // Check loading status
     useEffect(() => {
         if (fetchingTasks) {
@@ -31,11 +36,6 @@ export const useTasks = () => {
             }, 5000);
         }
     }, [fetchingTasks]);
-
-    const resetState = useCallback(() => {
-        setLoading(true);
-        setError(undefined);
-    }, []);
 
     const fetchTasks = useCallback(
         async (
@@ -79,9 +79,8 @@ export const useTasks = () => {
         [resetState],
     );
 
-    // Get timestamp on mount
-    useEffect(() => {
-        (async (token = getAccessToken()) => {
+    const getTimestamp = useCallback(
+        async (token = getAccessToken()) => {
             resetState();
             try {
                 const res = (
@@ -90,18 +89,25 @@ export const useTasks = () => {
                     })
                 ).data as ITimestampData;
                 console.log(res);
-                setTimestamp(res?.timestamp || 0);
+                return res?.timestamp;
             } catch (err) {
                 console.error(err.response.data || err);
             } finally {
                 setLoading(false);
             }
-        })();
-    }, [resetState]);
+        },
+        [resetState],
+    );
+
+    const updateTimestamp = useCallback(
+        async () => setTimestamp((await getTimestamp()) || 0),
+        [getTimestamp],
+    );
 
     return {
         fetchTasks,
         resetTimestamp,
+        updateTimestamp,
         timestamp,
         loading,
         error,

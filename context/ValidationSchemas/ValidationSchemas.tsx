@@ -20,6 +20,12 @@ export interface ValidationSchemasContextState {
         }
     >;
     BakalariCredsSchema: ObjectSchema<object & BakalariReqBody>;
+    NewTaskSchema: ObjectSchema<
+        object & {
+            sender: string;
+            body: string;
+        }
+    >;
 }
 
 const defaultValue: ValidationSchemasContextState = {
@@ -39,6 +45,10 @@ const defaultValue: ValidationSchemasContextState = {
         url: string().required(),
         username: string().required(),
         password: string().required(),
+    }),
+    NewTaskSchema: object().shape({
+        sender: string().required(),
+        body: string().required(),
     }),
 };
 
@@ -123,6 +133,10 @@ export const ValidationSchemasProvider: FC<ContextProps> = ({ children }) => {
                 password: string().required(
                     `${fields.password} ${validationMsgs.required}`,
                 ),
+            }),
+            NewTaskSchema: object().shape({
+                sender: string().required(),
+                body: string().required(),
             }),
         }),
         [validationMsgs, fields],

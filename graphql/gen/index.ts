@@ -1210,7 +1210,7 @@ export type ConnectedServicesQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const TasksDocument = gql`
     query tasks {
-        tasks {
+        tasks(sortBy: DATE_DESC) {
             ...task
         }
     }
