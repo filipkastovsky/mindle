@@ -101,6 +101,20 @@ const Settings: React.FC = () => {
                 </Position>
             </PaperWithSwitch>
             <Position justify="flex-start" direction="row" flex={0}>
+                <Label>Service settings:</Label>
+            </Position>
+            <PaperWithSwitch
+                SwitchProps={{
+                    currentValue: isCredentialStorageEnabled,
+                    onValueChange: () =>
+                        setIsCredentialStorageEnabled(
+                            !isCredentialStorageEnabled,
+                        ),
+                }}
+            >
+                Save credentials locally
+            </PaperWithSwitch>
+            <Position justify="flex-start" direction="row" flex={0}>
                 <Label>News sync:</Label>
             </Position>
             {
@@ -128,20 +142,6 @@ const Settings: React.FC = () => {
                     !loading && 'Link a service to start using News sync'
                 )
             }
-            <Position justify="flex-start" direction="row" flex={0}>
-                <Label>Service settings:</Label>
-            </Position>
-            <PaperWithSwitch
-                SwitchProps={{
-                    currentValue: isCredentialStorageEnabled,
-                    onValueChange: () =>
-                        setIsCredentialStorageEnabled(
-                            !isCredentialStorageEnabled,
-                        ),
-                }}
-            >
-                Save credentials locally
-            </PaperWithSwitch>
         </>
     );
 };
