@@ -67,6 +67,8 @@ const News: React.FC = () => {
     const onSubmit = handleSubmit as any;
 
     const loading = tasksLoading || deleteLoading || createLoading;
+    const error =
+        tasksError || starError || resolveError || deleteError || createError;
 
     const { setActive, active } = useLoading();
 
@@ -75,24 +77,8 @@ const News: React.FC = () => {
     }, [active, loading, setActive]);
 
     useEffect(() => {
-        tasksError && console.error(tasksError);
-    }, [tasksError]);
-
-    useEffect(() => {
-        starError && console.error(starError);
-    }, [starError]);
-
-    useEffect(() => {
-        resolveError && console.error(resolveError);
-    }, [resolveError]);
-
-    useEffect(() => {
-        deleteError && console.error(deleteError);
-    }, [deleteError]);
-
-    useEffect(() => {
-        createError && console.error(createError);
-    }, [createError]);
+        error && console.error(error);
+    }, [error]);
 
     return (
         <>
