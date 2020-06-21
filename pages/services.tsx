@@ -127,18 +127,21 @@ const Services: React.FC = () => {
                 <Position>
                     <Logo src="/icons/bakalari.png"></Logo>
                     <Input
+                        autoComplete="off"
                         label="Url"
                         value={values.url}
                         onChange={onChange('url')}
                         error={!!errors.url}
                     ></Input>
                     <Input
+                        autoComplete="off"
                         label="Username"
                         value={values.username}
                         onChange={onChange('username')}
                         error={!!errors.username}
                     ></Input>
                     <Input
+                        autoComplete="off"
                         label="Password"
                         value={values.password}
                         onChange={onChange('password')}
