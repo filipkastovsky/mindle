@@ -49,7 +49,11 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
             if (service === 'bakalari') {
                 axios
                     .post(
-                        `https://${req.headers.host}/api/services/bakalari`,
+                        `${
+                            process.env.NODE_ENV === 'development'
+                                ? 'http'
+                                : 'https'
+                        }://${req.headers.host}/api/services/bakalari`,
                         serviceCredentials.bakalari,
                     )
                     .then(({ data }) => data.data.tasks as ITask[])
@@ -78,7 +82,9 @@ export default async (req: IApiRequest, res: NextApiResponse) => {
                         if (result.errors) throw result.errors;
                         timestampStore.setItem(sub, Date.now());
                     })
-                    .catch((err) => console.error(err?.response?.data || err))
+                    .catch((err) => {
+                        console.error(err?.response?.data || err);
+                    })
                     .finally(() => {
                         statusStore.setItem(sub, false);
                         client.stop();

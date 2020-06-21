@@ -15,6 +15,7 @@ import Logo from '../components/Logo/Logo';
 import PaperWithButton from '../components/Paper/PaperWithButton';
 import LightText from '../components/LightText/LightText';
 import { formatDate } from '../utils/formatDate';
+import { useCredentialStorage } from '../hooks/useCredentialStorage';
 
 const Settings: React.FC = () => {
     const {
@@ -37,6 +38,11 @@ const Settings: React.FC = () => {
         resetTimestamp,
         updateTimestamp,
     } = useTasks();
+
+    const {
+        isEnabled: isCredentialStorageEnabled,
+        setIsEnabled: setIsCredentialStorageEnabled,
+    } = useCredentialStorage();
 
     const loading =
         tasksLoading ||
@@ -93,6 +99,20 @@ const Settings: React.FC = () => {
                     <Logo src="/icons/bakalari.png" />
                     Bakaláři
                 </Position>
+            </PaperWithSwitch>
+            <Position justify="flex-start" direction="row" flex={0}>
+                <Label>Service settings:</Label>
+            </Position>
+            <PaperWithSwitch
+                SwitchProps={{
+                    currentValue: isCredentialStorageEnabled,
+                    onValueChange: () =>
+                        setIsCredentialStorageEnabled(
+                            !isCredentialStorageEnabled,
+                        ),
+                }}
+            >
+                Save credentials locally
             </PaperWithSwitch>
             <Position justify="flex-start" direction="row" flex={0}>
                 <Label>News sync:</Label>

@@ -17,6 +17,7 @@ import { useFormik } from 'formik';
 import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import { firstObjValue } from '../utils/firstObjValue';
 import { Modal } from '../components/Modal/Modal';
+import { useCredentialStorage } from '../hooks/useCredentialStorage';
 
 const LogoWithRipple = withRipple(Logo);
 
@@ -30,28 +31,45 @@ const Services: React.FC = () => {
     } = useConnectedServicesQuery();
     const { fetchTasks, fetchingTasks, loading: tasksLoading } = useTasks();
     const { active, setActive } = useLoading();
+    const {
+        isEnabled: isCredentialStorageEnabled,
+        getBakalari,
+        setBakalari,
+    } = useCredentialStorage();
 
     const loading = connectedServiceLoading || tasksLoading;
 
     const { BakalariCredsSchema } = useValidationSchemas();
-    const { values, errors, handleChange, handleSubmit } = useFormik({
-        initialValues: schemaToInitialValues(BakalariCredsSchema)(),
-        validationSchema: BakalariCredsSchema,
-        validateOnChange: false,
-        onSubmit: (values) => {
-            setIsModalOpen(false);
-            // Remove trailing slash
-            if (values.url.endsWith('/'))
-                return fetchTasks({
-                    bakalari: { ...values, url: values.url.slice(0, -1) },
-                });
+    const { values, errors, handleChange, handleSubmit, setValues } = useFormik(
+        {
+            initialValues: schemaToInitialValues(BakalariCredsSchema)(),
+            validationSchema: BakalariCredsSchema,
+            validateOnChange: false,
+            onSubmit: (values) => {
+                if (isCredentialStorageEnabled) setBakalari(values);
+                setIsModalOpen(false);
+                //   Remove trailing slash if present
+                if (values.url.endsWith('/'))
+                    return fetchTasks({
+                        bakalari: { ...values, url: values.url.slice(0, -1) },
+                    });
 
-            return fetchTasks({ bakalari: values });
+                return fetchTasks({ bakalari: values });
+            },
         },
-    });
+    );
 
     const onChange = handleChange as any;
     const onSubmit = handleSubmit as any;
+
+    useEffect(() => {
+        if (isCredentialStorageEnabled) {
+            try {
+                setValues({ ...values, ...getBakalari() });
+            } catch {}
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getBakalari, isCredentialStorageEnabled, setValues]);
 
     useEffect(() => {
         error && console.error(error);
