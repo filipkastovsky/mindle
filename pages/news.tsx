@@ -25,7 +25,11 @@ import { firstObjValue } from '../utils/firstObjValue';
 import { getUserId } from '../graphql/utils/getUserId';
 
 const News: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isCreateOrEditModalOpen, setIsCreateOrUpdateModalOpen] = useState<
+        boolean
+    >(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+    const [selectedTaskId, setSelectedTaskId] = useState<string>('');
 
     const {
         data: tasksData,
@@ -60,7 +64,7 @@ const News: React.FC = () => {
                 refetchQueries: ['tasks'],
                 awaitRefetchQueries: true,
             });
-            setIsModalOpen(false);
+            setIsCreateOrUpdateModalOpen(false);
         },
     });
     const onChange = handleChange as any;
@@ -113,26 +117,23 @@ const News: React.FC = () => {
                                 },
                             });
                         }}
-                        onDeleteClick={() =>
-                            deleteTask({
-                                variables: { taskId: task?._id },
-                                refetchQueries: ['tasks'],
-                                awaitRefetchQueries: true,
-                            })
-                        }
+                        onDeleteClick={() => {
+                            setSelectedTaskId(task?._id);
+                            setIsDeleteModalOpen(true);
+                        }}
                         key={task?._id!}
                         task={task as ITask}
                     />
                 ))}
             <FloatingButton
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => setIsCreateOrUpdateModalOpen(true)}
                 role={ButtonRoles.Primary}
             >
                 <Add />
             </FloatingButton>
             <Modal
-                open={isModalOpen}
-                onBackdropClick={() => setIsModalOpen(false)}
+                open={isCreateOrEditModalOpen}
+                onBackdropClick={() => setIsCreateOrUpdateModalOpen(false)}
             >
                 <Position>
                     <Logo src="/logos/mindle-logo.svg"></Logo>
@@ -157,6 +158,36 @@ const News: React.FC = () => {
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
                         Create
                     </Button>
+                </Position>
+            </Modal>
+            <Modal
+                open={isDeleteModalOpen}
+                onBackdropClick={() => setIsDeleteModalOpen(false)}
+            >
+                <Position>
+                    <Logo src="/logos/mindle-logo.svg"></Logo>
+                    <h2>This task will be gone forever!</h2>
+                    <Position direction="row">
+                        <Button
+                            role={ButtonRoles.Primary}
+                            onClick={() => {
+                                deleteTask({
+                                    variables: { taskId: selectedTaskId },
+                                    refetchQueries: ['tasks'],
+                                    awaitRefetchQueries: true,
+                                });
+                                setIsDeleteModalOpen(false);
+                            }}
+                        >
+                            Confirm
+                        </Button>
+                        <Button
+                            role={ButtonRoles.Secondary}
+                            onClick={() => setIsDeleteModalOpen(false)}
+                        >
+                            Reconsider
+                        </Button>
+                    </Position>
                 </Position>
             </Modal>
         </>
