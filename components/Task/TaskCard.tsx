@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import ITask from '../../interfaces/ITask';
 import styled from 'styled-components';
@@ -6,6 +6,14 @@ import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';
 import { IPaperProps } from '../Paper/Paper';
 import { formatDate } from '../../utils/formatDate';
+
+import Holdable from './Holdable';
+import { useFormik } from 'formik';
+import Button, { ButtonRoles } from '../Button/Button';
+import { Modal } from '../Modal/Modal';
+import Logo from '../Logo/Logo';
+import Position from '../Position/Position';
+import Input from '../Input/Input';
 
 type ClickHandlerType = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>,
@@ -44,26 +52,65 @@ const TaskCard: React.FC<ITaskCardProps> = ({
     onDeleteClick,
     PaperProps,
 }) => {
+    const { values, errors, handleChange, handleSubmit } = useFormik({
+        onSubmit: ({ sender, body }) => {
+            console.log('Submitted');
+            setIsModalOpen(false);
+        },
+    });
+    const onChange = handleChange as any;
+    const onSubmit = handleSubmit as any;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <TaskPaper
-            {...PaperProps}
-            highlighted={starred}
-            deemphesized={resolved}
-        >
-            <TaskTitle>{sender}</TaskTitle>
-            <TaskService>{service}</TaskService>
-            {date && <TaskDate>{formatDate(date)}</TaskDate>}
-            <TaskBody>{body}</TaskBody>
-            <TaskActions
-                {...{
-                    starred,
-                    resolved,
-                    onStarClick,
-                    onResolveClick,
-                    onDeleteClick,
-                }}
-            />
-        </TaskPaper>
+        <>
+            <Modal
+                open={isModalOpen}
+                onBackdropClick={() => setIsModalOpen(false)}
+            >
+                <Position>
+                    <Logo src="/logos/mindle-logo.svg"></Logo>
+                    <Input
+                        label="Title"
+                        value={sender}
+                        onChange={onChange('sender')}
+                        error={!!errors.sender}
+                    ></Input>
+                    <Input
+                        label="Body"
+                        value={body}
+                        onChange={onChange('body')}
+                        error={!!errors.body}
+                    ></Input>
+
+                    <Button role={ButtonRoles.Primary} onClick={handleSubmit}>
+                        Create
+                    </Button>
+                </Position>
+            </Modal>
+
+            <TaskPaper
+                {...PaperProps}
+                highlighted={starred}
+                deemphesized={resolved}
+            >
+                <TaskTitle>{sender}</TaskTitle>
+                <TaskService>{service}</TaskService>
+                {date && <TaskDate>{formatDate(date)}</TaskDate>}
+                <Holdable onHold={() => setIsModalOpen(true)}>
+                    <TaskBody>{body}</TaskBody>
+                </Holdable>
+                <TaskActions
+                    {...{
+                        starred,
+                        resolved,
+                        onStarClick,
+                        onResolveClick,
+                        onDeleteClick,
+                    }}
+                />
+            </TaskPaper>
+        </>
     );
 };
 
