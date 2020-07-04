@@ -27,6 +27,9 @@ import { getUserId } from '../graphql/utils/getUserId';
 
 const News: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isServiceWarningModalOpen, setIsServiceWarningModalOpen] = useState<
+        boolean
+    >(false);
     const taskIdToBeEdited = useRef<string | null>(null);
 
     const {
@@ -109,6 +112,9 @@ const News: React.FC = () => {
                 tasksData.tasks.map((task) => (
                     <TaskCard
                         onLongPress={() => {
+                            if (task?.service)
+                                return setIsServiceWarningModalOpen(true);
+
                             taskIdToBeEdited.current = task?._id;
                             setIsModalOpen(true);
                             setValues({
@@ -196,6 +202,16 @@ const News: React.FC = () => {
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
                         {taskIdToBeEdited.current ? 'Edit' : 'Create'}
                     </Button>
+                </Position>
+            </Modal>
+            <Modal
+                open={isServiceWarningModalOpen}
+                onBackdropClick={() => setIsServiceWarningModalOpen(false)}
+            >
+                <Position>
+                    <ErrorMessage>
+                        Only tasks created by you can be edited
+                    </ErrorMessage>
                 </Position>
             </Modal>
         </>
