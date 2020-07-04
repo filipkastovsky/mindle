@@ -1,0 +1,10 @@
+mutation editTask($taskId: ObjectId!, $newTask: TaskUpdateInput!) {
+    updateOneTask(query: { _id: $taskId }, set: $newTask) {
+        _id
+        body
+        date
+        resolved
+        sender
+        starred
+    }
+}
