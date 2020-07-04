@@ -58,6 +58,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
             onMouseDown={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onMouseUp={handleTouchEnd}
+            onContextMenu={(e) => e.preventDefault()}
         >
             <TaskTitle>{sender}</TaskTitle>
             <TaskService>{service}</TaskService>
