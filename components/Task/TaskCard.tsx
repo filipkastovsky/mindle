@@ -6,6 +6,7 @@ import TaskActions from './TaskActions';
 import TaskPaper from './TaskPaper';
 import { IPaperProps } from '../Paper/Paper';
 import { formatDate } from '../../utils/formatDate';
+import { useLongPress } from '../../hooks/useLongPress';
 
 type ClickHandlerType = (
     event: React.MouseEvent<SVGSVGElement, MouseEvent>,
@@ -16,6 +17,7 @@ export interface ITaskCardProps {
     onStarClick: ClickHandlerType;
     onResolveClick: ClickHandlerType;
     onDeleteClick: ClickHandlerType;
+    onLongPress?: ClickHandlerType;
 }
 
 const TaskTitle = styled.h2`
@@ -42,13 +44,20 @@ const TaskCard: React.FC<ITaskCardProps> = ({
     onStarClick,
     onResolveClick,
     onDeleteClick,
+    onLongPress,
     PaperProps,
 }) => {
+    const { handleTouchEnd, handleTouchStart } = useLongPress(onLongPress);
+
     return (
         <TaskPaper
             {...PaperProps}
             highlighted={starred}
             deemphesized={resolved}
+            onTouchStart={handleTouchStart}
+            onMouseDown={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseUp={handleTouchEnd}
         >
             <TaskTitle>{sender}</TaskTitle>
             <TaskService>{service}</TaskService>

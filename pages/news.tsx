@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
     useTasksQuery,
     useStarTaskMutation,
     useResolveTaskMutation,
     useDeleteTaskMutation,
     useCreateTaskMutation,
+    useEditTaskMutation,
 } from '../graphql/gen';
 import { useLoading } from '../context/Loading';
 import withPage from '../components/withPage';
@@ -25,11 +26,14 @@ import { firstObjValue } from '../utils/firstObjValue';
 import { getUserId } from '../graphql/utils/getUserId';
 
 const News: React.FC = () => {
-    const [isCreateOrEditModalOpen, setIsCreateOrUpdateModalOpen] = useState<
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+    const [isCreateOrUpdateModalOpen, setIsCreateOrUpdateModalOpen] = useState<
         boolean
     >(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-    const [selectedTaskId, setSelectedTaskId] = useState<string>('');
+    const [isServiceWarningModalOpen, setIsServiceWarningModalOpen] = useState<
+        boolean
+    >(false);
+    const taskIdToBeEdited = useRef<string | null>(null);
 
     const {
         data: tasksData,
@@ -40,39 +44,60 @@ const News: React.FC = () => {
         create,
         { error: createError, loading: createLoading },
     ] = useCreateTaskMutation();
+    const [
+        edit,
+        { error: editError, loading: editLoading },
+    ] = useEditTaskMutation();
     const [star, { error: starError }] = useStarTaskMutation();
     const [resolve, { error: resolveError }] = useResolveTaskMutation();
     const [
         deleteTask,
         { error: deleteError, loading: deleteLoading },
     ] = useDeleteTaskMutation();
+
     const { NewTaskSchema } = useValidationSchemas();
-    const { values, errors, handleChange, handleSubmit } = useFormik({
-        initialValues: schemaToInitialValues(NewTaskSchema)(),
-        validationSchema: NewTaskSchema,
-        validateOnChange: false,
-        onSubmit: ({ sender, body }) => {
-            create({
-                variables: {
-                    task: {
-                        sender,
-                        body,
-                        date: Date.now(),
-                        user_id: getUserId(),
-                    },
-                },
-                refetchQueries: ['tasks'],
-                awaitRefetchQueries: true,
-            });
-            setIsCreateOrUpdateModalOpen(false);
+
+    const { values, errors, handleChange, handleSubmit, setValues } = useFormik(
+        {
+            initialValues: schemaToInitialValues(NewTaskSchema)(),
+            validationSchema: NewTaskSchema,
+            validateOnChange: false,
+            onSubmit: ({ sender, body }) => {
+                taskIdToBeEdited.current
+                    ? edit({
+                          variables: {
+                              taskId: taskIdToBeEdited.current,
+                              newTask: { sender, body },
+                          },
+                      })
+                    : create({
+                          variables: {
+                              task: {
+                                  sender,
+                                  body,
+                                  date: Date.now(),
+                                  user_id: getUserId(),
+                              },
+                          },
+                          refetchQueries: ['tasks'],
+                          awaitRefetchQueries: true,
+                      });
+                setIsCreateOrUpdateModalOpen(false);
+            },
         },
-    });
+    );
     const onChange = handleChange as any;
     const onSubmit = handleSubmit as any;
 
-    const loading = tasksLoading || deleteLoading || createLoading;
+    const loading =
+        tasksLoading || deleteLoading || createLoading || editLoading;
     const error =
-        tasksError || starError || resolveError || deleteError || createError;
+        tasksError ||
+        starError ||
+        resolveError ||
+        deleteError ||
+        createError ||
+        editError;
 
     const { setActive, active } = useLoading();
 
@@ -89,6 +114,17 @@ const News: React.FC = () => {
             {tasksData?.tasks &&
                 tasksData.tasks.map((task) => (
                     <TaskCard
+                        onLongPress={() => {
+                            if (task?.service)
+                                return setIsServiceWarningModalOpen(true);
+
+                            taskIdToBeEdited.current = task?._id;
+                            setIsCreateOrUpdateModalOpen(true);
+                            setValues({
+                                body: task?.body ?? '',
+                                sender: task?.sender ?? '',
+                            });
+                        }}
                         onStarClick={() => {
                             star({
                                 variables: {
@@ -118,7 +154,7 @@ const News: React.FC = () => {
                             });
                         }}
                         onDeleteClick={() => {
-                            setSelectedTaskId(task?._id);
+                            taskIdToBeEdited.current = task?._id;
                             setIsDeleteModalOpen(true);
                         }}
                         key={task?._id!}
@@ -126,13 +162,20 @@ const News: React.FC = () => {
                     />
                 ))}
             <FloatingButton
-                onClick={() => setIsCreateOrUpdateModalOpen(true)}
+                onClick={() => {
+                    taskIdToBeEdited.current = null;
+                    setIsCreateOrUpdateModalOpen(true);
+                    setValues({
+                        body: '',
+                        sender: '',
+                    });
+                }}
                 role={ButtonRoles.Primary}
             >
                 <Add />
             </FloatingButton>
             <Modal
-                open={isCreateOrEditModalOpen}
+                open={isCreateOrUpdateModalOpen}
                 onBackdropClick={() => setIsCreateOrUpdateModalOpen(false)}
             >
                 <Position>
@@ -156,7 +199,7 @@ const News: React.FC = () => {
                         </ErrorMessage>
                     </Position>
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
-                        Create
+                        {taskIdToBeEdited.current ? 'Edit' : 'Create'}
                     </Button>
                 </Position>
             </Modal>
@@ -172,7 +215,9 @@ const News: React.FC = () => {
                             role={ButtonRoles.Primary}
                             onClick={() => {
                                 deleteTask({
-                                    variables: { taskId: selectedTaskId },
+                                    variables: {
+                                        taskId: taskIdToBeEdited.current,
+                                    },
                                     refetchQueries: ['tasks'],
                                     awaitRefetchQueries: true,
                                 });
@@ -188,6 +233,16 @@ const News: React.FC = () => {
                             Reconsider
                         </Button>
                     </Position>
+                </Position>
+            </Modal>
+            <Modal
+                open={isServiceWarningModalOpen}
+                onBackdropClick={() => setIsServiceWarningModalOpen(false)}
+            >
+                <Position>
+                    <ErrorMessage>
+                        Only tasks created by you can be edited
+                    </ErrorMessage>
                 </Position>
             </Modal>
         </>
