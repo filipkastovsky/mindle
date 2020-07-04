@@ -159,6 +159,10 @@ const News: React.FC = () => {
                 onClick={() => {
                     taskIdToBeEdited.current = null;
                     setIsModalOpen(true);
+                    setValues({
+                        body: '',
+                        sender: '',
+                    });
                 }}
                 role={ButtonRoles.Primary}
             >
