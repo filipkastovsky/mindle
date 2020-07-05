@@ -1,7 +1,10 @@
 import React from 'react';
 import Position from '../components/Position/Position';
 import HeroTitle from '../components/Welcome/HeroTitle';
-import StyledIllustration from '../components/StyledIllustration';
+import {
+    StyledIllustration,
+    StyledImagePosition,
+} from '../components/StyledIllustration';
 import HeroSubheading from '../components/Welcome/HeroSubheading';
 import Link from 'next/link';
 import { Routes } from '../Routes';
@@ -23,19 +26,25 @@ const StyledInnerPosition = styled(Position)`
     }
 `;
 
+const StyledAlignToEndPosition = styled(Position)`
+    ${Breakpoints.desktop} {
+        margin-top: 30%;
+    }
+`;
+
 export const Welcome = () => (
     <StyledContainerPosition>
-        <Position>
+        <StyledInnerPosition>
             <Position>
                 <HeroTitle />
             </Position>
-            <Position>
+            <StyledImagePosition>
                 <StyledIllustration src="/welcome.svg" alt="Welcome" />
-            </Position>
-        </Position>
+            </StyledImagePosition>
+        </StyledInnerPosition>
 
-        <Position>
-            <StyledInnerPosition>
+        <StyledInnerPosition>
+            <StyledAlignToEndPosition>
                 <HeroSubheading />
                 <Link href={Routes.CreateAccount}>
                     <Button role={ButtonRoles.Primary}>Create Account</Button>
@@ -48,7 +57,7 @@ export const Welcome = () => (
                         Continue as Guest
                     </Button>
                 </Link>
-            </StyledInnerPosition>
-        </Position>
+            </StyledAlignToEndPosition>
+        </StyledInnerPosition>
     </StyledContainerPosition>
 );

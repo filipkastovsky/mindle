@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 
 import Link from 'next/link';
 import Input from '../components/Input/Input';
-import StyledIllustration from '../components/StyledIllustration';
+import {
+    StyledIllustration,
+    StyledImagePosition,
+} from '../components/StyledIllustration';
 import { useFormik } from 'formik';
 
 import { schemaToInitialValues } from '../utils/schemaToInitialValues';
@@ -18,6 +21,43 @@ import Button, { ButtonRoles } from '../components/Button/Button';
 import { Routes } from '../Routes';
 import withPage from '../components/withPage';
 import { capitalizeFirst } from '../utils/capitalizeFirst';
+import styled from 'styled-components';
+import { Device } from '../theme/Device';
+import Breakpoints from '../theme/Breakpoints';
+
+const StyledErrorMessageRowPosition = styled(Position)`
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+`;
+
+const StyledErrorMessagePosition = styled(Position)`
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+
+const StyledButtonPosition = styled(Position)`
+    justify-content: flex-end;
+`;
+
+const StyledContainerPosition = styled(Position)`
+    ${Breakpoints.desktop} {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+    }
+`;
+
+const StyledInnerPosition = styled(Position)`
+    ${Breakpoints.desktop} {
+        all: unset;
+        width: 30%;
+    }
+    > * {
+        margin: 10px 0;
+    }
+`;
 
 const CreateAccountPage: React.FC = () => {
     const { LoginSchema } = useValidationSchemas();
@@ -48,52 +88,59 @@ const CreateAccountPage: React.FC = () => {
     }, [active, loading, setActive]);
 
     return (
-        <>
-            <Position>
-                <Input
-                    value={values.email}
-                    onChange={onChange('email')}
-                    type="email"
-                    label="Email"
-                    error={!!errors.email}
-                />
-                <Input
-                    value={values.password}
-                    onChange={onChange('password')}
-                    type="password"
-                    label="Password"
-                    error={!!errors.password}
-                />
-                <Position
-                    direction="row-reverse"
-                    justify="space-between"
-                    align="flex-start"
-                >
-                    <Label>Reset Password</Label>
-                    {(firstObjValue(errors) || authError?.message) && (
-                        <Position justify="flex-start" align="flex-start">
-                            <ErrorMessage>
-                                {firstObjValue(errors) ||
-                                    capitalizeFirst(authError!.message!)}
-                            </ErrorMessage>
-                        </Position>
-                    )}
+        <StyledContainerPosition>
+            <Device devices={['desktop']}>
+                <StyledImagePosition>
+                    <StyledIllustration src="/login.svg" alt="Login" />
+                </StyledImagePosition>
+            </Device>
+            <StyledInnerPosition>
+                <Position>
+                    <Input
+                        value={values.email}
+                        onChange={onChange('email')}
+                        type="email"
+                        label="Email"
+                        error={!!errors.email}
+                    />
+                    <Input
+                        value={values.password}
+                        onChange={onChange('password')}
+                        type="password"
+                        label="Password"
+                        error={!!errors.password}
+                    />
+                    <StyledErrorMessageRowPosition>
+                        <Label>Reset Password</Label>
+                        {(firstObjValue(errors) || authError?.message) && (
+                            <StyledErrorMessagePosition>
+                                <ErrorMessage>
+                                    {firstObjValue(errors) ||
+                                        capitalizeFirst(authError!.message!)}
+                                </ErrorMessage>
+                            </StyledErrorMessagePosition>
+                        )}
+                    </StyledErrorMessageRowPosition>
                 </Position>
-            </Position>
-            <Position>
-                <StyledIllustration src="/login.svg" alt="Welcome" />
-            </Position>
+                <Device devices={['mobile']}>
+                    <StyledImagePosition>
+                        <StyledIllustration src="/login.svg" alt="Login" />
+                    </StyledImagePosition>
+                </Device>
 
-            <Position justify="flex-end">
-                <Button role={ButtonRoles.Primary} onClick={onSubmit}>
-                    Sign In
-                </Button>
+                <StyledButtonPosition>
+                    <Button role={ButtonRoles.Primary} onClick={onSubmit}>
+                        Sign In
+                    </Button>
 
-                <Link href={Routes.CreateAccount}>
-                    <Button role={ButtonRoles.Secondary}>Create Account</Button>
-                </Link>
-            </Position>
-        </>
+                    <Link href={Routes.CreateAccount}>
+                        <Button role={ButtonRoles.Secondary}>
+                            Create Account
+                        </Button>
+                    </Link>
+                </StyledButtonPosition>
+            </StyledInnerPosition>
+        </StyledContainerPosition>
     );
 };
 

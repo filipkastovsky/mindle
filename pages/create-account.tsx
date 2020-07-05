@@ -10,7 +10,10 @@ import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import Position from '../components/Position/Position';
 import Input from '../components/Input/Input';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
-import StyledIllustration from '../components/StyledIllustration';
+import {
+    StyledIllustration,
+    StyledImagePosition,
+} from '../components/StyledIllustration';
 import Checkbox from '../components/Checkbox/Checkbox';
 import Button, { ButtonRoles } from '../components/Button/Button';
 import Link from 'next/link';
@@ -34,13 +37,15 @@ const StyledContainerPosition = styled(Position)`
     ${Breakpoints.desktop} {
         flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
+        padding: 0 5%;
     }
 `;
 
 const StyledInnerPosition = styled(Position)`
     ${Breakpoints.desktop} {
         all: unset;
+        width: 30%;
     }
     > * {
         margin: 10px 0;
@@ -86,12 +91,12 @@ const CreateAccountPage: React.FC = () => {
     return (
         <StyledContainerPosition>
             <Device devices={['desktop']}>
-                <Position>
+                <StyledImagePosition>
                     <StyledIllustration
                         src="/create-account.svg"
-                        alt="Welcome"
+                        alt="Create account"
                     />
-                </Position>
+                </StyledImagePosition>
             </Device>
             <StyledInnerPosition>
                 <Position>
@@ -126,12 +131,12 @@ const CreateAccountPage: React.FC = () => {
                     )}
                 </Position>
                 <Device devices={['mobile']}>
-                    <Position>
+                    <StyledImagePosition>
                         <StyledIllustration
                             src="/create-account.svg"
-                            alt="Welcome"
+                            alt="Create account"
                         />
-                    </Position>
+                    </StyledImagePosition>
                 </Device>
                 <Position>
                     <Checkbox
