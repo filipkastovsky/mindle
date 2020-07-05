@@ -14,6 +14,9 @@ const Label = styled.h3`
 
 const StyledPosition = styled(Position)`
     max-height: 2em;
+    flex: 0;
+    justify-content: flex-start;
+    flex-direction: row;
 `;
 
 export interface ICheckboxProps extends MuiCheckboxProps {
@@ -34,7 +37,7 @@ const Checkbox: React.FC<ICheckboxProps> = ({
     ...props
 }) => {
     return (
-        <StyledPosition flex={0} justify="flex-start" direction="row">
+        <StyledPosition>
             <MuiCheckbox
                 {...props}
                 {...(error ? { style: { color: 'red' } } : {})}

@@ -18,15 +18,20 @@ const StyledPaper = styled(Paper)`
     padding: 5%;
 `;
 
+const StyledPosition = styled(Position)`
+    align-items: center;
+    justify-content: center;
+`;
+
 export interface IModalProps extends MuiModalProps {}
 
 export const Modal: React.FC<IModalProps> = ({ children, ...props }) => {
     return (
         <StyledModal {...props}>
             <ModalContainer>
-                <Position align="center" justify="center">
+                <StyledPosition>
                     <StyledPaper>{children}</StyledPaper>
-                </Position>
+                </StyledPosition>
             </ModalContainer>
         </StyledModal>
     );
