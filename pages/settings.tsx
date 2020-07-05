@@ -16,6 +16,25 @@ import PaperWithButton from '../components/Paper/PaperWithButton';
 import LightText from '../components/LightText/LightText';
 import { formatDate } from '../utils/formatDate';
 import { useCredentialStorage } from '../hooks/useCredentialStorage';
+import styled from 'styled-components';
+
+const StyledLinkedContainer = styled(Position)`
+    justify-content: start;
+    flex-direction: row;
+    flex: 0;
+`;
+
+const StyledServiceStrip = styled(Position)`
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80px;
+`;
+
+const StyledErrorMessagePosition = styled(Position)`
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
 
 const Settings: React.FC = () => {
     const {
@@ -68,9 +87,9 @@ const Settings: React.FC = () => {
     }, [active, loading, setActive]);
     return (
         <>
-            <Position justify="flex-start" direction="row" flex={0}>
+            <StyledLinkedContainer>
                 <Label>Linked:</Label>
-            </Position>
+            </StyledLinkedContainer>
             <PaperWithSwitch
                 SwitchProps={{
                     currentValue: !!data?.connected_service?.bakalari,
@@ -90,19 +109,14 @@ const Settings: React.FC = () => {
                         }),
                 }}
             >
-                <Position
-                    align="center"
-                    direction="row"
-                    justify="space-between"
-                    width="80px"
-                >
+                <StyledServiceStrip>
                     <Logo src="/icons/bakalari.png" />
                     Bakaláři
-                </Position>
+                </StyledServiceStrip>
             </PaperWithSwitch>
-            <Position justify="flex-start" direction="row" flex={0}>
+            <StyledLinkedContainer>
                 <Label>Service settings:</Label>
-            </Position>
+            </StyledLinkedContainer>
             <PaperWithSwitch
                 SwitchProps={{
                     currentValue: isCredentialStorageEnabled,
@@ -114,9 +128,9 @@ const Settings: React.FC = () => {
             >
                 Save credentials locally
             </PaperWithSwitch>
-            <Position justify="flex-start" direction="row" flex={0}>
+            <StyledLinkedContainer>
                 <Label>News sync:</Label>
-            </Position>
+            </StyledLinkedContainer>
             {
                 // TODO: Include other services
                 data?.connected_service?.bakalari ? (
@@ -127,16 +141,16 @@ const Settings: React.FC = () => {
                         }}
                         ButtonContent="Reset"
                     >
-                        <Position align="flex-start" justify="flex-start">
+                        <StyledErrorMessagePosition>
                             Last sync:
-                        </Position>
-                        <Position align="flex-start" justify="flex-start">
+                        </StyledErrorMessagePosition>
+                        <StyledErrorMessagePosition>
                             <LightText>
                                 {timestamp
                                     ? formatDate(timestamp)
                                     : 'No sync yet'}
                             </LightText>
-                        </Position>
+                        </StyledErrorMessagePosition>
                     </PaperWithButton>
                 ) : (
                     !loading && 'Link a service to start using News sync'

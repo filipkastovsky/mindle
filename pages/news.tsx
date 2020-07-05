@@ -24,6 +24,33 @@ import Input from '../components/Input/Input';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import { firstObjValue } from '../utils/firstObjValue';
 import { getUserId } from '../graphql/utils/getUserId';
+import styled from 'styled-components';
+import Breakpoints from '../theme/Breakpoints';
+import Devices from '../theme/Devices';
+
+const BASE_COLS = 2;
+
+const StyledErrorMessagePosition = styled(Position)`
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+
+const StyledRowPosition = styled(Position)`
+    flex-direction: row;
+`;
+
+const StyledContainerGrid = styled(Position)`
+    ${Breakpoints.desktop} {
+        display: grid;
+        grid-column-gap: 10px;
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(${Devices.mobile.to / BASE_COLS}px, 1fr)
+        );
+        grid-auto-flow: dense;
+        align-items: unset;
+    }
+`;
 
 const News: React.FC = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -110,7 +137,7 @@ const News: React.FC = () => {
     }, [error]);
 
     return (
-        <>
+        <StyledContainerGrid>
             {tasksData?.tasks &&
                 tasksData.tasks.map((task) => (
                     <TaskCard
@@ -193,11 +220,11 @@ const News: React.FC = () => {
                         onChange={onChange('body')}
                         error={!!errors.body}
                     ></Input>
-                    <Position justify="flex-start" align="flex-start">
+                    <StyledErrorMessagePosition>
                         <ErrorMessage>
                             {firstObjValue(errors) || ''}
                         </ErrorMessage>
-                    </Position>
+                    </StyledErrorMessagePosition>
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
                         {taskIdToBeEdited.current ? 'Edit' : 'Create'}
                     </Button>
@@ -210,7 +237,7 @@ const News: React.FC = () => {
                 <Position>
                     <Logo src="/logos/mindle-logo.svg"></Logo>
                     <h2>This task will be gone forever!</h2>
-                    <Position direction="row">
+                    <StyledRowPosition>
                         <Button
                             role={ButtonRoles.Primary}
                             onClick={() => {
@@ -232,7 +259,7 @@ const News: React.FC = () => {
                         >
                             Reconsider
                         </Button>
-                    </Position>
+                    </StyledRowPosition>
                 </Position>
             </Modal>
             <Modal
@@ -245,7 +272,7 @@ const News: React.FC = () => {
                     </ErrorMessage>
                 </Position>
             </Modal>
-        </>
+        </StyledContainerGrid>
     );
 };
 

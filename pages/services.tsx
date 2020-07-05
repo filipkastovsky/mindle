@@ -18,8 +18,26 @@ import { schemaToInitialValues } from '../utils/schemaToInitialValues';
 import { firstObjValue } from '../utils/firstObjValue';
 import { Modal } from '../components/Modal/Modal';
 import { useCredentialStorage } from '../hooks/useCredentialStorage';
+import styled from 'styled-components';
 
 const LogoWithRipple = withRipple(Logo);
+
+const StyledFetchFromContainer = styled(Position)`
+    justify-content: start;
+    flex-direction: row;
+    flex: 0;
+`;
+
+const StyledErrorMessagePosition = styled(Position)`
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+const StyledServiceStrip = styled(Position)`
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80px;
+`;
 
 const Services: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -80,16 +98,11 @@ const Services: React.FC = () => {
     }, [active, loading, setActive]);
     return (
         <>
-            <Position justify="flex-start" direction="row" flex={0}>
+            <StyledFetchFromContainer>
                 <Label>Fetch from:</Label>
-            </Position>
+            </StyledFetchFromContainer>
             <Paper>
-                <Position
-                    align="center"
-                    direction="row"
-                    justify="space-around"
-                    width="80px"
-                >
+                <StyledServiceStrip>
                     {fetchingTasks ? (
                         <CircularProgress size={22} />
                     ) : (
@@ -114,7 +127,7 @@ const Services: React.FC = () => {
                         disabled={!data?.connected_service?.googleClassroom}
                         src="/icons/google.png"
                     />
-                </Position>
+                </StyledServiceStrip>
             </Paper>
             <Label></Label>
             {!loading &&
@@ -148,11 +161,11 @@ const Services: React.FC = () => {
                         type="password"
                         error={!!errors.password}
                     ></Input>
-                    <Position justify="flex-start" align="flex-start">
+                    <StyledErrorMessagePosition>
                         <ErrorMessage>
                             {firstObjValue(errors) || ''}
                         </ErrorMessage>
-                    </Position>
+                    </StyledErrorMessagePosition>
 
                     <Button role={ButtonRoles.Primary} onClick={onSubmit}>
                         Fetch
