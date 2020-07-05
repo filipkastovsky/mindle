@@ -6,6 +6,7 @@ const TaskPaper = styled(Paper)<IPaperProps>`
     justify-content: flex-start;
     margin: 5px 0;
     padding: 10px;
+    word-wrap: break-word;
 `;
 
 export default TaskPaper;

@@ -684,6 +684,20 @@ export type DeleteTaskMutation = { __typename?: 'Mutation' } & {
     deleteOneTask?: Maybe<{ __typename?: 'Task' } & Pick<Task, '_id'>>;
 };
 
+export type EditTaskMutationVariables = {
+    taskId: Scalars['ObjectId'];
+    newTask: TaskUpdateInput;
+};
+
+export type EditTaskMutation = { __typename?: 'Mutation' } & {
+    updateOneTask?: Maybe<
+        { __typename?: 'Task' } & Pick<
+            Task,
+            '_id' | 'body' | 'date' | 'resolved' | 'sender' | 'starred'
+        >
+    >;
+};
+
 export type ResolveTaskMutationVariables = {
     taskId: Scalars['ObjectId'];
     value: Scalars['Boolean'];
@@ -1049,6 +1063,60 @@ export type DeleteTaskMutationResult = ApolloReactCommon.MutationResult<
 export type DeleteTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
     DeleteTaskMutation,
     DeleteTaskMutationVariables
+>;
+export const EditTaskDocument = gql`
+    mutation editTask($taskId: ObjectId!, $newTask: TaskUpdateInput!) {
+        updateOneTask(query: { _id: $taskId }, set: $newTask) {
+            _id
+            body
+            date
+            resolved
+            sender
+            starred
+        }
+    }
+`;
+export type EditTaskMutationFn = ApolloReactCommon.MutationFunction<
+    EditTaskMutation,
+    EditTaskMutationVariables
+>;
+
+/**
+ * __useEditTaskMutation__
+ *
+ * To run a mutation, you first call `useEditTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editTaskMutation, { data, loading, error }] = useEditTaskMutation({
+ *   variables: {
+ *      taskId: // value for 'taskId'
+ *      newTask: // value for 'newTask'
+ *   },
+ * });
+ */
+export function useEditTaskMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        EditTaskMutation,
+        EditTaskMutationVariables
+    >,
+) {
+    return ApolloReactHooks.useMutation<
+        EditTaskMutation,
+        EditTaskMutationVariables
+    >(EditTaskDocument, baseOptions);
+}
+export type EditTaskMutationHookResult = ReturnType<typeof useEditTaskMutation>;
+export type EditTaskMutationResult = ApolloReactCommon.MutationResult<
+    EditTaskMutation
+>;
+export type EditTaskMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    EditTaskMutation,
+    EditTaskMutationVariables
 >;
 export const ResolveTaskDocument = gql`
     mutation resolveTask($taskId: ObjectId!, $value: Boolean!) {

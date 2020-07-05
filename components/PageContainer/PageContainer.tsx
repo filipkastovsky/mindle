@@ -7,5 +7,6 @@ export default styled.div`
     padding: 0 5vw;
     min-height: 100vh;
     width: 100vw;
+    max-width: 100vw;
     align-items: center;
 `;
