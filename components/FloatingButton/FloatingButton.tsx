@@ -17,6 +17,6 @@ export default styled(Fab)<IFloatingButtonProps>`
     color: ${({ role }) =>
         role === ButtonRoles.Primary ? Colors.White : Colors.Dark};
     position: fixed;
-    bottom: 3.2em;
-    align-self: flex-end;
+    bottom: 2.7em;
+    right: 5vw;
 `;
