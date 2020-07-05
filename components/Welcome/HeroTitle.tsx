@@ -18,8 +18,7 @@ const StyledSpan = styled.span`
 const HeroTitle: React.FC<IHeroTitleProps> = () => {
     return (
         <StyledH1>
-            Welcome <br />
-            to <StyledSpan>mindle</StyledSpan>.
+            Welcome to <StyledSpan>mindle</StyledSpan>.
         </StyledH1>
     );
 };
