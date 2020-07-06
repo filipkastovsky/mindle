@@ -69,8 +69,8 @@ const client = (uri = process.env.API_URL) => {
 
     return new ApolloClient({
         link: ApolloLink.from([
-            (authLink as unknown) as ApolloLink,
             tokenRefreshLink,
+            (authLink as unknown) as ApolloLink,
             httpLink,
         ]),
         cache: new InMemoryCache(),
